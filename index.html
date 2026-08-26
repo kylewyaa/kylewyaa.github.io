@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kyle's World</title>
   <link rel="stylesheet" href="style.css" />
+  </main>
 </head>
 
 <body>
@@ -13,94 +12,47 @@
     <div class="startup-mark" aria-hidden="true">K<span>.</span></div>
     <div class="startup-meta">
       <p>WELCOME TO</p>
-      <h2>Loading</h2>
+      <h2>Loading
     </div>
     <div class="startup-progress" aria-hidden="true">
       <span></span>
     </div>
-    <p class="startup-status">STATUS: CODING <span>///</span> 001</p>
+    <p class="startup-status">STATUS: AWAKE <span>///</span> 001</p>
   </section>
-  <script src="spinner.js"></script>
 
   <!-- All content goes here -->
   <div id="all-contents">
     <nav>
       <h1>Kyle Campos</h1>
+      <script src="spinner.js"></script>
       <ul id="nav-ul">
         <li class="nav-li"><a href="index.html">Home</a></li>
         <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
-        <li class="nav-li"><a href="Schedule.html">Schedule</a></li>
-        <li class="nav-li"><a href="skybound.html">Skybound</a></li>
       </ul>
     </nav>
 
     <main>
       <div class="sidebar">
         <img class="sidebar-img"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrlH7vDFxZuIktFbE3MIfYCIXXPOWUqrczWMCCTvXo6xRgAYhbDca-qXQ&s=10"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL02mIztNdHbs7jxb8QS_foAjCRuCcQDNI4T4nnr701NiG0kRvnHjQUdw:https://i.scdn.co/image/ab6761610000e5eb3a05f18b26b12b31f75597e6&s"
           alt="My image" />
       </div>
 
       <div class="content">
-        <p class="status-line"><span class="status-icon" aria-hidden="true"></span><span class="status-copy">STATUS:
-            CODING</span></p>
+        <p>STATUS: AWAKE</p>
         <h2>Kyle</h2>
         <h3>Campos</h3>
         <p>Student at Covington High</p>
         <div id="interests">
           <h3>Interests</h3>
           <ul>
-            <li data-status="coding" role="button" tabindex="0">Coding</li>
-            <li data-status="awake" role="button" tabindex="0">Fashion</li>
-            <li data-status="sleeping" role="button" tabindex="0">Sleeping</li>
+            <li>Coding</li>
+            <li>Fashion</li>
+            <li>Sleeping</li>
           </ul>
         </div>
-      </div>
     </main>
   </div>
-  <script>
-    (function () {
-      var statusLine = document.querySelector(".status-line");
-      var statusCopy = document.querySelector(".status-copy");
-      var statusIcon = document.querySelector(".status-icon");
-      var statusOptions = document.querySelectorAll("#interests li[data-status]");
-
-      if (!statusLine || !statusCopy || !statusIcon) {
-        return;
-      }
-
-      function updateStatusIcon() {
-        var status = statusCopy.textContent.toUpperCase();
-        var state = status.indexOf("SLEEPING") > -1 ? "sleeping" : status.indexOf("CODING") > -1 ? "coding" : status.indexOf("AWAKE") > -1 ? "awake" : "default";
-        var icons = {
-          sleeping: "zzz",
-          coding: "<svg viewBox=\"0 0 32 24\" role=\"img\" aria-label=\"Coding\"><rect x=\"2\" y=\"2\" width=\"28\" height=\"17\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/><path d=\"M10 9l3 3-3 3M16 15h6M10 22h12M16 19v3\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.8\"/></svg>",
-          awake: "<svg viewBox=\"0 0 32 24\" role=\"img\" aria-label=\"Awake\"><circle cx=\"10\" cy=\"9\" r=\"4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/><path d=\"M10 1v3M10 14v3M2 9h3M15 9h3M4.3 3.3l2.1 2.1M13.6 12.6l2.1 2.1\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-width=\"1.5\"/><path d=\"M9 20h15a4 4 0 0 0 .4-8 6 6 0 0 0-11.2-1.4A4.5 4.5 0 0 0 9 20Z\" fill=\"none\" stroke=\"currentColor\" stroke-linejoin=\"round\" stroke-width=\"1.8\"/></svg>",
-          default: "•"
-        };
-
-        statusLine.dataset.state = state;
-        statusIcon.innerHTML = icons[state];
-      }
-
-      updateStatusIcon();
-      new MutationObserver(updateStatusIcon).observe(statusCopy, { childList: true, characterData: true, subtree: true });
-
-      statusOptions.forEach(function (option) {
-        function selectStatus() {
-          statusCopy.textContent = "STATUS: " + option.dataset.status.toUpperCase();
-        }
-
-        option.addEventListener("click", selectStatus);
-        option.addEventListener("keydown", function (event) {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            selectStatus();
-          }
-        });
-      });
-    }());
-  </script>
 </body>
 
 </html>
