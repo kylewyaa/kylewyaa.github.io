@@ -30,7 +30,12 @@
 .startup-screen::before {
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(0deg, transparent 0, transparent 5px, rgba(0, 0, 0, 0.025) 6px);
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 5px,
+    rgba(0, 0, 0, 0.025) 6px
+  );
   content: "";
   pointer-events: none;
 }
@@ -112,11 +117,15 @@
 }
 
 @keyframes startup-pulse {
-  50% { transform: translateY(-4px); }
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 @keyframes startup-load {
-  to { transform: scaleX(1); }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 @keyframes startup-exit {
@@ -140,7 +149,7 @@ body {
   padding: 32px 40px;
 }
 
- main {
+main {
   display: grid;
   grid-template-columns: minmax(220px, 1fr) minmax(420px, 1.6fr);
   align-items: center;
@@ -175,6 +184,67 @@ h2 {
   text-transform: uppercase;
   letter-spacing: 0.15em;
   line-height: 1.4;
+}
+
+.status-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-icon {
+  display: inline-flex;
+  min-width: 30px;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.status-line[data-state="sleeping"] .status-icon {
+  animation: status-drift 1.8s ease-in-out infinite;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+.status-line[data-state="coding"] .status-icon {
+  animation: status-blink 2s ease-in-out infinite;
+}
+
+.status-line[data-state="coding"] svg {
+  width: 32px;
+  height: 24px;
+}
+
+.status-line[data-state="awake"] .status-icon {
+  animation: status-glow 2.4s ease-in-out infinite;
+}
+
+.status-line[data-state="awake"] svg {
+  width: 32px;
+  height: 24px;
+}
+
+@keyframes status-drift {
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes status-glow {
+  50% {
+    transform: rotate(8deg) scale(1.08);
+  }
+}
+
+@keyframes status-blink {
+  50% {
+    transform: translateY(-2px);
+  }
 }
 
 h2 {
@@ -219,7 +289,12 @@ h2 {
     background 0.25s ease,
     color 0.25s ease,
     transform 0.25s ease;
-  cursor: default;
+  cursor: pointer;
+}
+
+#interests li:focus-visible {
+  outline: 3px solid #3f49a3;
+  outline-offset: 3px;
 }
 
 #interests li:hover {
@@ -357,10 +432,132 @@ nav h1 {
 }
 
 .nav-li a {
-  color: #a8b2d8;
+  color: #000;
 }
 
 .nav-li a:hover {
   background: #1b1b1b;
   color: #ebe2e2;
+}
+
+.schedule-page {
+  display: block;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 32px 0 72px;
+}
+
+.schedule-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.schedule-heading h2 {
+  margin: 0;
+  color: #000;
+  font-size: clamp(3.5rem, 10vw, 7rem);
+}
+
+.schedule-heading p {
+  max-width: 280px;
+  margin: 0 0 8px;
+  color: #555;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.schedule-day {
+  min-height: 330px;
+  padding: 18px;
+  border-top: 4px solid #000;
+  background: #f5f0f1;
+}
+
+.schedule-day h3 {
+  margin: 0 0 22px;
+  color: #000;
+  font-size: 1.05rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+}
+
+.schedule-day ol {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.schedule-day li {
+  display: grid;
+  gap: 4px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #d2d2d8;
+}
+
+.schedule-day li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.schedule-time {
+  color: #777;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.schedule-event {
+  color: #111;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+@media (max-width: 780px) {
+  #all-contents {
+    padding: 20px;
+  }
+
+  nav {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  #nav-ul {
+    flex-wrap: wrap;
+  }
+
+  .schedule-page {
+    padding-top: 16px;
+  }
+
+  .schedule-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .schedule-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 460px) {
+  .schedule-grid {
+    grid-template-columns: 1fr;
+  }
 }
