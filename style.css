@@ -561,3 +561,95 @@ nav h1 {
     grid-template-columns: 1fr;
   }
 }
+:root {
+  --loader-ink: #000;
+  --loader-muted: #555;
+  --loader-white: #fff;
+  --loader-gray: #ddd;
+}
+
+body {
+  background: #fff;
+  color: #000;
+}
+
+h1,
+h2,
+h3,
+.game-copy h2,
+.schedule-heading h2 {
+  color: #000 !important;
+}
+
+nav {
+  background: #fff;
+  border-color: #000;
+}
+
+.content > p,
+.content p,
+.schedule-heading p {
+  color: #555;
+}
+
+#interests h3 {
+  color: #000;
+}
+
+#interests li,
+.schedule-day {
+  background: #fff;
+  border-color: #000;
+  color: #000;
+}
+
+.status-icon {
+  color: #000;
+}
+
+.sidebar-img {
+  filter: grayscale(100%);
+}
+
+.sidebar-img:hover {
+  filter: grayscale(100%);
+}
+
+/* Consistent black-and-white theme */
+:root {
+  --ink: #000;
+  --muted: #555;
+  --paper: #fff;
+  --coral: #000;
+  --teal: #000;
+  --line: rgba(0, 0, 0, 0.16);
+}
+
+body {
+  background: #fff;
+  color: #000;
+}
+
+h1,
+h2,
+h3,
+.game-copy h2,
+.schedule-heading h2 {
+  color: #000 !important;
+}
+
+.status-line,
+.status-copy,
+.status-icon {
+  color: #000;
+}
+
+nav,
+.schedule-day,
+#interests li {
+  border-color: #000;
+}
+
+.sidebar-img {
+  filter: grayscale(100%);
+}
