@@ -8,14 +8,14 @@
   <link rel="stylesheet" href="style.css" />
   <style>
     @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap");
-
+  
     :root {
-      --ink: #17212b;
-      --muted: #657582;
-      --paper: #f7f5ef;
-      --coral: #f26f5c;
-      --teal: #126b6b;
-      --line: rgba(23, 33, 43, 0.14);
+    --ink: #000;
+    --muted: #555;
+    --paper: #fff;
+    --coral: #000;
+    --teal: #000;
+    --line: rgba(0, 0, 0, 0.16);
     }
 
     * {
@@ -28,7 +28,7 @@
       color: var(--ink);
       font-family: "Space Grotesk", sans-serif;
       background: var(--paper);
-      background-image: radial-gradient(rgba(18, 107, 107, 0.12) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 1px);
       background-size: 18px 18px;
     }
 
@@ -100,8 +100,8 @@
       width: 100%;
       padding: 10px;
       border: 1px solid var(--ink);
-      background: var(--ink);
-      box-shadow: 12px 12px 0 var(--coral);
+      background: #000;
+      box-shadow: 12px 12px 0 #000;
     }
 
     canvas {
@@ -109,7 +109,7 @@
       width: 100%;
       height: auto;
       aspect-ratio: 420 / 640;
-      background: #9fd8d3;
+      background: #eee;
       cursor: pointer;
       touch-action: none;
     }
@@ -327,8 +327,18 @@
 
       function draw() {
         var sky = context.createLinearGradient(0, 0, 0, height);
-        sky.addColorStop(0, "#87c9c5");
-        sky.addColorStop(1, "#e8d9ad");
+       sky.addColorStop(0, "#ddd");
+      sky.addColorStop(1, "#fff");
+      context.fillStyle = "rgba(0, 0, 0, .12)";
+      context.fillStyle = "#000";
+      context.fillStyle = "#333";
+      context.fillStyle = "#eee";
+      context.fillStyle = "rgba(0, 0, 0, .12)";
+      context.fillStyle = "#000";
+      context.fillStyle = "#fff";
+      context.fillStyle = "#000";
+      context.fillStyle = "#fff";
+      context.fillStyle = "rgba(0, 0, 0, .78)";
         context.fillStyle = sky;
         context.fillRect(0, 0, width, height);
         context.fillStyle = "rgba(255,255,255,.32)";
