@@ -6,45 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio | Kyle's World</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .portfolio-page {
-      display: block;
-      max-width: 880px;
-      margin: 0 auto;
-      padding: 80px 24px;
-    }
-
-    .portfolio-page h2 {
-      margin: 18px 0;
-      color: #111;
-      font-size: clamp(3rem, 9vw, 7rem);
-    }
-
-    .portfolio-page p {
-      max-width: 560px;
-      color: #333;
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-
-    .project-link {
-      display: inline-block;
-      margin-top: 24px;
-      padding: 14px 20px;
-      color: #fff;
-      background: #111;
-      text-decoration: none;
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .project-link:hover {
-      background: #3f49a3;
-      transform: translateY(-3px);
-    }
-  </style>
+  <link rel="stylesheet" href="portfolio.css" />
 </head>
 
-<body>
+<body class="portfolio-page">
   <section class="startup-screen" aria-label="Loading Kyle's World">
     <div class="startup-mark" aria-hidden="true">K<span>.</span></div>
     <div class="startup-meta">
@@ -54,28 +19,52 @@
     <div class="startup-progress" aria-hidden="true">
       <span></span>
     </div>
-    <p class="startup-status">STATUS: AWAKE <span>///</span> 001</p>
+    <p class="startup-status">STATUS: CODING <span>///</span> 001</p>
   </section>
   <script src="spinner.js"></script>
+
+  <!-- All content goes here -->
   <div id="all-contents">
     <nav>
-      <h1>Kyle Campos</h1>
+      <h1>KYLE'S WORLD</h1>
       <ul id="nav-ul">
-        <li class="nav-li"><a href="index.html">Home</a></li>
-        <li class="nav-li"><a href="portfolio.html" aria-current="page">Portfolio</a></li>
-        <li class="nav-li"><a href="Schedule.html">Schedule</a></li>
-        <li class="nav-li"><a href="skybound.html">Skybound</a></li>
+        <li class="nav-li">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="nav-li">
+          <a href="portfolio.html" aria-current="page">Portfolio</a>
+        </li>
+        <li class="nav-li">
+          <a href="Schedule.html">Schedule</a>
+        </li>
+        <li class="nav-li">
+          <a href="skybound.html">Skybound</a>
+        </li>
       </ul>
     </nav>
 
-    <main class="portfolio-page">
+    <main>
+      <div class="content">
+        <h1>Portfolio</h1>
+        <h3>FSD Projects</h3>
+        <ul id="portfolio">
+          <li>
+            <a href="fsd-projects/platformer/">Platformer: A cannon-dodging adventure game for Halleb0t</a>
+          </li>
+          <li>
+            <a href="fsd-projects/bouncing-box/">Bouncing Box: A fun introduction to web game development</a>
+          </li>
+          <li>
+            <a href="fsd-projects/circularity/">Circularity: A poetic motion experiment with circles</a>
+          </li>
+          <li>
+            <a href="fsd-projects/runtime/">Runtime : Fearless HalleBot goes on a side-scrolling adventure!</a>
+          </li>
+        </ul>
 
-      <h2>Things I've built.</h2>
-      <p>I've built multiple projects in my life, but i've never felt more attached to this one, mostly a passion
-        project but my website and my flappy-esque game really have a place in my heart. Check in out below. </p>
+        <!-- ASD Projects will go here -->
 
-      <p>Explore Skybound Sprint, an interactive flight challenge built for the browser.</p>
-      <a class="project-link" href="skybound.html">Play Skybound Sprint</a>
+      </div>
     </main>
   </div>
 </body>
