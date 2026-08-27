@@ -96,6 +96,7 @@ let halleImage;
 let animationDetails = {};
 
 var collectableList = {
+  star: { image: "images/collectables/image.png" },
   database: { image: "images/collectables/database.png" },
   diamond: { image: "images/collectables/diamond-head.png" },
   grace: { image: "images/collectables/grace-head.png" },
