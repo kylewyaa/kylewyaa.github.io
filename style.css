@@ -157,6 +157,12 @@ main {
   gap: clamp(32px, 5vw, 80px);
 }
 
+main.name-display {
+  display: flex;
+  grid-template-columns: unset;
+  gap: 0;
+}
+
 .sidebar {
   width: 100%;
 }
