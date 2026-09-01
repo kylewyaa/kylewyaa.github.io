@@ -20,3 +20,32 @@ body {
   text-align: center;
   overflow: hidden;
 }
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  padding: 10px 14px;
+  border: 2px solid #000;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+  cursor: pointer;
+  font: 700 0.75rem/1 "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.25s ease;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:focus-visible {
+  outline: 3px solid #000;
+  outline-offset: 3px;
+}

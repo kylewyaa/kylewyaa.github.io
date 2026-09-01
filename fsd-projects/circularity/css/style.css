@@ -37,6 +37,37 @@ body.dark-mode .theme-toggle {
   outline-offset: 3px;
 }
 
+.back-button {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 20;
+  padding: 10px 14px;
+  border: 1px solid #f4f1ea;
+  border-radius: 999px;
+  background: #18211c;
+  color: #f4f1ea;
+  cursor: pointer;
+  font:
+    700 12px/1 Arial,
+    sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+}
+
+body.dark-mode .back-button {
+  border-color: #c7f36b;
+  background: #c7f36b;
+  color: #18211c;
+}
+
+.back-button:focus-visible {
+  outline: 3px solid #ff785f;
+  outline-offset: 3px;
+}
+
 /* Game mode button styles */
 .game-mode-btn {
   margin: 5px;

@@ -52,6 +52,29 @@
       outline-offset: 3px;
     }
 
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 2;
+      padding: 10px 14px;
+      border: 1px solid var(--page-text);
+      border-radius: 999px;
+      background: var(--button-background);
+      color: var(--button-text);
+      cursor: pointer;
+      font: 700 0.75rem/1 "Helvetica Neue", Arial, sans-serif;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .back-button:focus-visible {
+      outline: 3px solid #ff785f;
+      outline-offset: 3px;
+    }
+
     .box {
       width: 70px;
       height: 70px;
@@ -74,6 +97,9 @@
 </head>
 
 <body class="board">
+  <a href="../../index.html" class="back-button">
+    Back Home
+  </a>
   <button class="theme-toggle" type="button" aria-pressed="false">
     Dark mode
   </button>
