@@ -34,87 +34,70 @@
       </ul>
     </nav>
 
-    <main class="name-display">
-      <div class="name-container">
-        <div class="letter">K</div>
-        <div class="letter">y</div>
-        <div class="letter">l</div>
-        <div class="letter">e</div>
-        <div class="draggable-image" id="draggableImage">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrlH7vDFxZuIktFbE3MIfYCIXXPOWUqrczWMCCTvXo6xRgAYhbDca-qXQ&s=10" alt="Kyle's image" />
+    <main>
+      <div class="sidebar">
+        <img class="sidebar-img"
+          src="https://ocean.si.edu/sites/default/files/styles/full_width_largest/public/2023-11/wave-1215449_1280.jpg.webp?itok=3nkWJVL0"
+          alt="My image" />
+      </div>
+
+      <div class="content">
+        <p class="status-line"><span class="status-icon" aria-hidden="true"></span><span class="status-copy">STATUS:
+            CODING</span></p>
+        <h2>Kyle</h2>
+        <h3>Campos</h3>
+        <p>Student at Covington High</p>
+        <div id="interests">
+          <h3>Interests</h3>
+          <ul>
+            <li data-status="coding" role="button" tabindex="0">Coding</li>
+            <li data-status="awake" role="button" tabindex="0">Fashion</li>
+            <li data-status="sleeping" role="button" tabindex="0">Sleeping</li>
+          </ul>
         </div>
       </div>
     </main>
   </div>
   <script>
     (function () {
-      var draggableImage = document.getElementById("draggableImage");
-      var isDown = false;
-      var offset = { x: 0, y: 0 };
-      var currentX = 0;
-      var currentY = 0;
+      var statusLine = document.querySelector(".status-line");
+      var statusCopy = document.querySelector(".status-copy");
+      var statusIcon = document.querySelector(".status-icon");
+      var statusOptions = document.querySelectorAll("#interests li[data-status]");
 
-      // Set initial position
-      var rect = draggableImage.getBoundingClientRect();
-      var container = document.querySelector(".name-container");
-      var containerRect = container.getBoundingClientRect();
-      
-      currentX = rect.left - containerRect.left;
-      currentY = rect.top - containerRect.top;
+      if (!statusLine || !statusCopy || !statusIcon) {
+        return;
+      }
 
-      draggableImage.addEventListener("mousedown", function (e) {
-        isDown = true;
-        var rect = draggableImage.getBoundingClientRect();
-        offset.x = e.clientX - rect.left;
-        offset.y = e.clientY - rect.top;
-        draggableImage.style.cursor = "grabbing";
-      });
+      function updateStatusIcon() {
+        var status = statusCopy.textContent.toUpperCase();
+        var state = status.indexOf("SLEEPING") > -1 ? "sleeping" : status.indexOf("CODING") > -1 ? "coding" : status.indexOf("AWAKE") > -1 ? "awake" : "default";
+        var icons = {
+          sleeping: "zzz",
+          coding: "<svg viewBox=\"0 0 32 24\" role=\"img\" aria-label=\"Coding\"><rect x=\"2\" y=\"2\" width=\"28\" height=\"17\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/><path d=\"M10 9l3 3-3 3M16 15h6M10 22h12M16 19v3\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.8\"/></svg>",
+          awake: "<svg viewBox=\"0 0 32 24\" role=\"img\" aria-label=\"Awake\"><circle cx=\"10\" cy=\"9\" r=\"4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/><path d=\"M10 1v3M10 14v3M2 9h3M15 9h3M4.3 3.3l2.1 2.1M13.6 12.6l2.1 2.1\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-width=\"1.5\"/><path d=\"M9 20h15a4 4 0 0 0 .4-8 6 6 0 0 0-11.2-1.4A4.5 4.5 0 0 0 9 20Z\" fill=\"none\" stroke=\"currentColor\" stroke-linejoin=\"round\" stroke-width=\"1.8\"/></svg>",
+          default: "•"
+        };
 
-      document.addEventListener("mousemove", function (e) {
-        if (!isDown) return;
-        
-        var container = document.querySelector(".name-container");
-        var containerRect = container.getBoundingClientRect();
-        
-        currentX = e.clientX - containerRect.left - offset.x;
-        currentY = e.clientY - containerRect.top - offset.y;
-        
-        draggableImage.style.left = currentX + "px";
-        draggableImage.style.top = currentY + "px";
-        draggableImage.style.transform = "none";
-      });
+        statusLine.dataset.state = state;
+        statusIcon.innerHTML = icons[state];
+      }
 
-      document.addEventListener("mouseup", function () {
-        isDown = false;
-        draggableImage.style.cursor = "grab";
-      });
+      updateStatusIcon();
+      new MutationObserver(updateStatusIcon).observe(statusCopy, { childList: true, characterData: true, subtree: true });
 
-      // Touch support for mobile
-      draggableImage.addEventListener("touchstart", function (e) {
-        isDown = true;
-        var rect = draggableImage.getBoundingClientRect();
-        var touch = e.touches[0];
-        offset.x = touch.clientX - rect.left;
-        offset.y = touch.clientY - rect.top;
-      });
+      statusOptions.forEach(function (option) {
+        function selectStatus() {
+          statusCopy.textContent = "STATUS: " + option.dataset.status.toUpperCase();
+        }
 
-      document.addEventListener("touchmove", function (e) {
-        if (!isDown) return;
-        
-        var container = document.querySelector(".name-container");
-        var containerRect = container.getBoundingClientRect();
-        var touch = e.touches[0];
-        
-        currentX = touch.clientX - containerRect.left - offset.x;
-        currentY = touch.clientY - containerRect.top - offset.y;
-        
-        draggableImage.style.left = currentX + "px";
-        draggableImage.style.top = currentY + "px";
-        draggableImage.style.transform = "none";
-      });
-
-      document.addEventListener("touchend", function () {
-        isDown = false;
+        option.addEventListener("click", selectStatus);
+        option.addEventListener("keydown", function (event) {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            selectStatus();
+          }
+        });
       });
     }());
   </script>
