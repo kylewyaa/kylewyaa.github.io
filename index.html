@@ -30,13 +30,13 @@
       
       // Random starting position on left side
       const startY = Math.random() * window.innerHeight;
-      const startX = -10;
+      const randomSpeed = 2 + Math.random() * 2; // Speed variance
       
-      spark.style.left = startX + 'px';
       spark.style.top = startY + 'px';
+      spark.style.left = '0px';
       
-      // Random duration between 3-6 seconds
-      const duration = 3000 + Math.random() * 3000;
+      // Random duration between 3-8 seconds
+      const duration = 3000 + Math.random() * 5000;
       spark.style.animationDuration = duration + 'ms';
       
       document.body.appendChild(spark);
@@ -48,7 +48,7 @@
     }
     
     // Create sparks periodically
-    setInterval(createSpark, 100);
+    setInterval(createSpark, 50);
   </script>
 
   <!-- All content goes here -->

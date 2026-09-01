@@ -186,14 +186,12 @@ body::before {
 
 @keyframes spark-float {
   0% {
-    transform: translateX(0) translateY(0) scale(1);
-    opacity: 1;
-  }
-  50% {
+    left: 0;
     opacity: 1;
   }
   100% {
-    transform: translateX(100vw) translateY(-100px) scale(0.5);
+    left: 100vw;
+    top: -20px;
     opacity: 0;
   }
 }
@@ -223,12 +221,13 @@ h2 {
   font-weight: 900;
   letter-spacing: -0.04em;
   text-transform: uppercase;
-  color: #000;
+  color: #ffffff;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
 }
 
 .content > p {
   margin: 0;
-  color: #999;
+  color: #a0aec0;
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -246,7 +245,7 @@ h2 {
   min-width: 30px;
   align-items: center;
   justify-content: center;
-  color: #000;
+  color: #00ff88;
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
@@ -301,7 +300,7 @@ h2 {
 }
 
 .content p {
-  color: #0d0d0e;
+  color: #c0c0c0;
 }
 
 #interests {
@@ -314,7 +313,7 @@ h2 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: #aaa;
+  color: #00ff88;
 }
 
 #interests ul {
@@ -393,10 +392,11 @@ h3 {
   font-weight: 900;
   letter-spacing: -0.04em;
   text-transform: uppercase;
-  color: #000;
+  color: #00ff88;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
 }
 h3 {
-  color: #0a0909; /* bright accent */
+  color: #00ff88; /* bright accent */
 }
 .sidebar-img {
   width: 100%;
@@ -433,9 +433,10 @@ nav {
   align-items: center;
   margin-bottom: 48px;
   padding: 16px 24px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
+  background: rgba(20, 20, 40, 0.7);
+  border: 1px solid rgba(100, 150, 255, 0.3);
   border-radius: 12px;
+  backdrop-filter: blur(10px);
 }
 
 nav h1 {
@@ -444,7 +445,7 @@ nav h1 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: #000;
+  color: #00ff88;
 }
 
 #nav-ul {
@@ -456,7 +457,7 @@ nav h1 {
 }
 
 .nav-li a {
-  color: #666;
+  color: #a0aec0;
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 500;
@@ -468,8 +469,8 @@ nav h1 {
 }
 
 .nav-li a:hover {
-  background: #000;
-  color: #fff;
+  background: #00ff88;
+  color: #000;
 }
 nav {
   background: #e1e1e6;
