@@ -154,10 +154,11 @@
 .portfolio-footer .footer-content {
   max-width: 980px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 32px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 24px;
+  text-align: center;
 }
 
 .portfolio-footer .footer-branding {
@@ -203,22 +204,4 @@
 .portfolio-footer .return-to-top:hover {
   background: #18211c;
   color: #c7f36b;
-}
-
-@media (max-width: 768px) {
-  .portfolio-footer .footer-content {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    text-align: center;
-  }
-
-  .portfolio-footer .footer-nav {
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .portfolio-footer .return-to-top {
-    justify-self: center;
-  }
 }
