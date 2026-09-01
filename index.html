@@ -22,6 +22,35 @@
   </section>
   <script src="spinner.js"></script>
 
+  <script>
+    // Create animated sparks
+    function createSpark() {
+      const spark = document.createElement('div');
+      spark.className = 'spark';
+      
+      // Random starting position on left side
+      const startY = Math.random() * window.innerHeight;
+      const startX = -10;
+      
+      spark.style.left = startX + 'px';
+      spark.style.top = startY + 'px';
+      
+      // Random duration between 3-6 seconds
+      const duration = 3000 + Math.random() * 3000;
+      spark.style.animationDuration = duration + 'ms';
+      
+      document.body.appendChild(spark);
+      
+      // Remove spark after animation completes
+      setTimeout(() => {
+        spark.remove();
+      }, duration);
+    }
+    
+    // Create sparks periodically
+    setInterval(createSpark, 100);
+  </script>
+
   <!-- All content goes here -->
   <div id="all-contents">
     <nav>
