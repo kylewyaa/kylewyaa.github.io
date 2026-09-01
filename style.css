@@ -951,9 +951,10 @@ nav,
   align-items: center;
   justify-content: center;
   gap: clamp(20px, 5vw, 60px);
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   max-width: 1200px;
   width: 100%;
+  height: clamp(300px, 60vh, 600px);
 }
 
 .letter {
@@ -968,6 +969,8 @@ nav,
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  z-index: 1;
 }
 
 .draggable-image {
@@ -980,6 +983,10 @@ nav,
   transition: box-shadow 0.3s ease;
   width: clamp(200px, 40vw, 400px);
   aspect-ratio: 3 / 4;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 }
 
 .draggable-image:active {
@@ -997,6 +1004,7 @@ nav,
 @media (max-width: 768px) {
   .name-container {
     gap: clamp(10px, 3vw, 30px);
+    height: clamp(250px, 50vh, 500px);
   }
 
   .letter {

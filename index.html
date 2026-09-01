@@ -54,12 +54,20 @@
       var currentX = 0;
       var currentY = 0;
 
+      // Set initial position
+      var rect = draggableImage.getBoundingClientRect();
+      var container = document.querySelector(".name-container");
+      var containerRect = container.getBoundingClientRect();
+      
+      currentX = rect.left - containerRect.left;
+      currentY = rect.top - containerRect.top;
+
       draggableImage.addEventListener("mousedown", function (e) {
         isDown = true;
         var rect = draggableImage.getBoundingClientRect();
         offset.x = e.clientX - rect.left;
         offset.y = e.clientY - rect.top;
-        draggableImage.style.zIndex = "100";
+        draggableImage.style.cursor = "grabbing";
       });
 
       document.addEventListener("mousemove", function (e) {
@@ -71,12 +79,14 @@
         currentX = e.clientX - containerRect.left - offset.x;
         currentY = e.clientY - containerRect.top - offset.y;
         
-        draggableImage.style.transform = "translate(" + currentX + "px, " + currentY + "px)";
+        draggableImage.style.left = currentX + "px";
+        draggableImage.style.top = currentY + "px";
+        draggableImage.style.transform = "none";
       });
 
       document.addEventListener("mouseup", function () {
         isDown = false;
-        draggableImage.style.zIndex = "10";
+        draggableImage.style.cursor = "grab";
       });
 
       // Touch support for mobile
@@ -86,7 +96,6 @@
         var touch = e.touches[0];
         offset.x = touch.clientX - rect.left;
         offset.y = touch.clientY - rect.top;
-        draggableImage.style.zIndex = "100";
       });
 
       document.addEventListener("touchmove", function (e) {
@@ -99,12 +108,13 @@
         currentX = touch.clientX - containerRect.left - offset.x;
         currentY = touch.clientY - containerRect.top - offset.y;
         
-        draggableImage.style.transform = "translate(" + currentX + "px, " + currentY + "px)";
+        draggableImage.style.left = currentX + "px";
+        draggableImage.style.top = currentY + "px";
+        draggableImage.style.transform = "none";
       });
 
       document.addEventListener("touchend", function () {
         isDown = false;
-        draggableImage.style.zIndex = "10";
       });
     }());
   </script>
