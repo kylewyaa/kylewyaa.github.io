@@ -32,7 +32,10 @@ body {
   background: rgba(255, 255, 255, 0.9);
   color: #000;
   cursor: pointer;
-  font: 700 0.75rem/1 "Helvetica Neue", Arial, sans-serif;
+  font:
+    700 0.75rem/1 "Helvetica Neue",
+    Arial,
+    sans-serif;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;

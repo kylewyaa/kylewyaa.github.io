@@ -66,7 +66,28 @@
 
       </div>
     </main>
+
+    <footer class="portfolio-footer">
+      <div class="footer-content">
+        <div class="footer-branding">
+          <p>Kyle Campos</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="index.html">Home</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="Schedule.html">Schedule</a>
+          <a href="skybound.html">Skybound</a>
+        </nav>
+        <button class="return-to-top" aria-label="Return to top">Return to Top</button>
+      </div>
+    </footer>
   </div>
+
+  <script>
+    document.querySelector('.return-to-top').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 </body>
 
 </html>
