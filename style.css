@@ -137,21 +137,30 @@
 
 body {
   margin: 0;
-  background: url('https://im2.ezgif.com/tmp/ezgif-2-0JAZ.gif') center/cover no-repeat fixed;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   background-attachment: fixed;
   color: #222;
   font-family: "Helvetica Neue", Arial, sans-serif;
   position: relative;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(255, 100, 100, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(100, 150, 255, 0.1) 0%, transparent 50%);
   pointer-events: none;
   z-index: 1;
+  animation: ambient-shift 8s ease-in-out infinite;
+}
+
+@keyframes ambient-shift {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
 #all-contents {
@@ -165,23 +174,26 @@ body::before {
 
 .spark {
   position: fixed;
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   background: white;
   border-radius: 50%;
   pointer-events: none;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
-  z-index: 0;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9), 0 0 15px rgba(200, 220, 255, 0.6);
+  z-index: 3;
   animation: spark-float linear forwards;
 }
 
 @keyframes spark-float {
   0% {
-    transform: translateX(0) translateY(0);
+    transform: translateX(0) translateY(0) scale(1);
+    opacity: 1;
+  }
+  50% {
     opacity: 1;
   }
   100% {
-    transform: translateX(100vw) translateY(-100px);
+    transform: translateX(100vw) translateY(-100px) scale(0.5);
     opacity: 0;
   }
 }
