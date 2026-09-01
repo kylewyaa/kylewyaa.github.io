@@ -929,3 +929,75 @@ nav,
   filter: grayscale(100%);
 }
 */
+
+/* Name Display Styles */
+.name-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 160px);
+  width: 100%;
+}
+
+.name-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 5vw, 60px);
+  flex-wrap: wrap;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.letter {
+  font-size: clamp(120px, 25vw, 300px);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+  color: #000;
+  font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  text-transform: uppercase;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.draggable-image {
+  position: absolute;
+  cursor: grab;
+  user-select: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+  width: clamp(200px, 40vw, 400px);
+  aspect-ratio: 3 / 4;
+}
+
+.draggable-image:active {
+  cursor: grabbing;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.draggable-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .name-container {
+    gap: clamp(10px, 3vw, 30px);
+  }
+
+  .letter {
+    font-size: clamp(80px, 20vw, 180px);
+  }
+
+  .draggable-image {
+    width: clamp(150px, 35vw, 300px);
+  }
+}
