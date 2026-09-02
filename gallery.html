@@ -209,27 +209,10 @@
       var status = document.getElementById("gallery-status");
       var resetButton = document.getElementById("reset-theme");
       var savedBackground = localStorage.getItem("home-background");
-      var navThemes = [
-        ["#111318", "#ffffff"],
-        ["#d8e5ee", "#000000"],
-        ["#5c756d", "#ffffff"],
-        ["#e8e8e8", "#000000"],
-        ["#3d4248", "#ffffff"],
-        ["#b7d5df", "#000000"]
-      ];
-
       cards.forEach(function (card) {
         if (card.dataset.background === savedBackground) card.classList.add("is-selected");
         card.addEventListener("click", function () {
           localStorage.setItem("home-background", card.dataset.background);
-          var navTheme = navThemes[Array.prototype.indexOf.call(cards, card)] || navThemes[0];
-          localStorage.setItem("home-nav-color", navTheme[0]);
-          localStorage.setItem("home-nav-text", navTheme[1]);
-          document.querySelector("nav").style.backgroundColor = navTheme[0];
-          document.querySelector("nav").setAttribute("data-theme-text", navTheme[1] === "#ffffff" ? "light" : "dark");
-          document.querySelectorAll("nav h1, nav a").forEach(function (item) {
-            item.style.setProperty("color", navTheme[1], "important");
-          });
           cards.forEach(function (item) { item.classList.remove("is-selected"); });
           card.classList.add("is-selected");
           status.textContent = card.querySelector("h3").textContent + " selected across every page.";
@@ -238,8 +221,6 @@
 
       resetButton.addEventListener("click", function () {
         localStorage.removeItem("home-background");
-        localStorage.removeItem("home-nav-color");
-        localStorage.removeItem("home-nav-text");
         window.location.reload();
       });
     }());
