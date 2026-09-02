@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Skybound | Kyle's World</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="theme.js" defer></script>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap");
   
@@ -172,6 +173,34 @@
       margin-top: 28px;
     }
 
+    .leaderboard {
+      max-width: 430px;
+      margin-top: 34px;
+      border-top: 1px solid var(--line);
+    }
+
+    .leaderboard h3 {
+      margin: 14px 0 10px;
+      font-family: "DM Mono", monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .leaderboard-row {
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--line);
+      font-family: "DM Mono", monospace;
+      font-size: 0.8rem;
+    }
+
+    .leaderboard-score {
+      font-weight: 700;
+    }
+
     kbd {
       padding: 8px 10px;
       border: 1px solid var(--line);
@@ -247,6 +276,11 @@
         <div class="instructions" aria-label="Game controls">
           <kbd>CLICK / TAP</kbd><kbd>SPACE</kbd><kbd>R TO RESET</kbd>
         </div>
+        <section class="leaderboard" aria-labelledby="leaderboard-title">
+          <h3 id="leaderboard-title">Leaderboard</h3>
+          <div class="leaderboard-row"><span>#1</span><span>Michael Sumrall</span><span class="leaderboard-score">52</span></div>
+          <div class="leaderboard-row"><span>#2</span><span>Kyle (you)</span><span class="leaderboard-score">34</span></div>
+        </section>
       </section>
     </main>
   </div>

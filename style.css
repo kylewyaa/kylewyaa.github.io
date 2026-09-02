@@ -137,7 +137,9 @@
 
 body {
   margin: 0;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.72)), url("file:///C:/Users/11180874/Downloads/DEFCADC9-C22F-471B-8811-D6BDD10E9007.gif");
+  background-position: center;
+  background-size: cover;
   background-attachment: fixed;
   color: #222;
   font-family: "Helvetica Neue", Arial, sans-serif;
@@ -150,9 +152,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(255, 100, 100, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(100, 150, 255, 0.1) 0%, transparent 50%);
+  background: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.08), transparent 55%);
   pointer-events: none;
   z-index: 1;
   animation: ambient-shift 8s ease-in-out infinite;
@@ -170,6 +170,151 @@ body::before {
   min-height: 100vh;
   margin: 0 auto;
   padding: 32px 40px;
+}
+
+.learn-button {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 5;
+  padding: 12px 18px;
+  border: 1px solid #fff;
+  border-radius: 999px;
+  background: #fff;
+  color: #08090a;
+  font: 700 0.8rem "Space Grotesk", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #08090a;
+}
+
+.learn-button:hover,
+.learn-button:focus-visible {
+  background: #fff;
+  background: #000;
+  color: #fff;
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.learn-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.learn-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 7;
+  width: min(440px, calc(100% - 40px));
+  padding: 26px;
+  overflow-y: auto;
+  background: rgba(8, 9, 10, 0.96);
+  color: #fff;
+  border: 1px solid #fff;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.72);
+  transform: translateX(calc(100% + 40px));
+  transition: transform 0.25s ease;
+}
+
+.learn-panel.is-open {
+  transform: translateX(0);
+}
+
+.learn-panel-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  padding-bottom: 18px;
+}
+
+.learn-kicker,
+.learn-intro,
+.lesson p {
+  color: #c0c0c0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.learn-kicker {
+  margin: 0 0 8px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.learn-panel h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 2.8rem;
+  letter-spacing: -0.04em;
+}
+
+.learn-close {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.learn-intro {
+  margin: 18px 0 24px;
+}
+
+.lesson {
+  margin-top: 18px;
+}
+
+.lesson-number {
+  margin-bottom: 5px !important;
+  color: #fff !important;
+  font-family: "DM Mono", monospace;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.lesson h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.05rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.lesson p {
+  margin: 6px 0 10px;
+}
+
+.lesson pre {
+  margin: 0;
+  padding: 14px;
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: #111416;
+  color: #fff;
+  font: 0.72rem/1.55 "DM Mono", monospace;
+  white-space: pre;
+}
+
+.learn-credit {
+  margin: 28px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  color: #fff;
+  font: 0.68rem "DM Mono", monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .spark {
@@ -227,7 +372,7 @@ h2 {
 
 .content > p {
   margin: 0;
-  color: #a0aec0;
+  color: #c0c0c0;
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -245,7 +390,7 @@ h2 {
   min-width: 30px;
   align-items: center;
   justify-content: center;
-  color: #00ff88;
+  color: #fff;
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
@@ -313,7 +458,7 @@ h2 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: #00ff88;
+  color: #fff;
 }
 
 #interests ul {
@@ -341,7 +486,7 @@ h2 {
 }
 
 #interests li:focus-visible {
-  outline: 3px solid #3f49a3;
+  outline: 3px solid #fff;
   outline-offset: 3px;
 }
 
@@ -352,7 +497,7 @@ h2 {
   transform: translateY(-2px);
 }
 #interests h3 {
-  color: #3f49a3;
+  color: #fff;
 }
 
 #interests li {
@@ -365,6 +510,42 @@ h2 {
   background: #08090c;
   color: #fff;
 }
+
+.daily-verse {
+  width: 100%;
+  max-width: 520px;
+  margin-top: 30px;
+  padding: 18px 20px;
+  border-left: 3px solid #fff;
+  background: rgba(0, 0, 0, 0.64);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.daily-verse-label {
+  margin: 0 0 12px !important;
+  color: #fff !important;
+  font: 700 0.68rem "DM Mono", monospace !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.daily-verse blockquote {
+  margin: 0;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.daily-verse cite {
+  display: block;
+  margin-top: 12px;
+  color: #c0c0c0;
+  font: 0.7rem "DM Mono", monospace;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .sidebar-img {
   width: 100%;
   max-width: 760px;
@@ -392,11 +573,11 @@ h3 {
   font-weight: 900;
   letter-spacing: -0.04em;
   text-transform: uppercase;
-  color: #00ff88;
+  color: #fff;
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
 }
 h3 {
-  color: #00ff88; /* bright accent */
+  color: #fff;
 }
 .sidebar-img {
   width: 100%;
@@ -434,7 +615,7 @@ nav {
   margin-bottom: 48px;
   padding: 16px 24px;
   background: rgba(20, 20, 40, 0.7);
-  border: 1px solid rgba(100, 150, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
   backdrop-filter: blur(10px);
 }
@@ -445,7 +626,7 @@ nav h1 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: #00ff88;
+  color: #fff;
 }
 
 #nav-ul {
@@ -457,7 +638,7 @@ nav h1 {
 }
 
 .nav-li a {
-  color: #a0aec0;
+  color: #c0c0c0;
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 500;
@@ -469,7 +650,7 @@ nav h1 {
 }
 
 .nav-li a:hover {
-  background: #00ff88;
+  background: #fff;
   color: #000;
 }
 nav {
@@ -479,6 +660,13 @@ nav {
 
 nav h1 {
   color: #000000;
+  cursor: default;
+  transition: color 0.25s ease;
+}
+
+nav h1:hover,
+nav h1:focus-visible {
+  color: #3f49a3;
 }
 
 .nav-li a {

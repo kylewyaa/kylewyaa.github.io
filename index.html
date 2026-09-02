@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kyle's World</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=3" />
+  <script src="theme.js" defer></script>
 </head>
 
 <body>
@@ -21,32 +22,43 @@
     <p class="startup-status">STATUS: CODING <span>///</span> 001</p>
   </section>
   <script src="spinner.js"></script>
+  <script>
+    (function () {
+      var savedBackground = localStorage.getItem("home-background");
+      if (savedBackground) {
+        document.body.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.72)), url('" + savedBackground + "')";
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center";
+        document.body.style.backgroundAttachment = "fixed";
+      }
+    }());
+  </script>
 
   <script>
     // Create animated sparks
     function createSpark() {
       const spark = document.createElement('div');
       spark.className = 'spark';
-      
+
       // Random starting position on left side
       const startY = Math.random() * window.innerHeight;
       const randomSpeed = 2 + Math.random() * 2; // Speed variance
-      
+
       spark.style.top = startY + 'px';
       spark.style.left = '0px';
-      
+
       // Random duration between 3-8 seconds
       const duration = 3000 + Math.random() * 5000;
       spark.style.animationDuration = duration + 'ms';
-      
+
       document.body.appendChild(spark);
-      
+
       // Remove spark after animation completes
       setTimeout(() => {
         spark.remove();
       }, duration);
     }
-    
+
     // Create sparks periodically
     setInterval(createSpark, 50);
   </script>
@@ -60,6 +72,7 @@
         <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
         <li class="nav-li"><a href="Schedule.html">Schedule</a></li>
         <li class="nav-li"><a href="skybound.html">Skybound</a></li>
+        <li class="nav-li"><a href="gallery.html">Gallery</a></li>
       </ul>
     </nav>
 
@@ -84,9 +97,80 @@
             <li data-status="sleeping" role="button" tabindex="0">Sleeping</li>
           </ul>
         </div>
+        <section class="daily-verse" aria-labelledby="daily-verse-title">
+          <p class="daily-verse-label" id="daily-verse-title">Daily Bible Verse</p>
+          <blockquote id="verse-text"></blockquote>
+          <cite id="verse-reference"></cite>
+        </section>
       </div>
     </main>
   </div>
+  <button class="learn-button" type="button" aria-expanded="false" aria-controls="learn-panel">
+    Learn
+  </button>
+  <div class="learn-backdrop" hidden></div>
+  <aside class="learn-panel" id="learn-panel" aria-labelledby="learn-title" aria-hidden="true">
+    <div class="learn-panel-header">
+      <div>
+        <p class="learn-kicker">Website starter kit</p>
+        <h2 id="learn-title">Learn</h2>
+      </div>
+      <button class="learn-close" type="button" aria-label="Close Learn panel">&times;</button>
+    </div>
+    <p class="learn-intro">Copy these starter patterns to add motion, polish, and interaction to your own website.</p>
+    <div class="lesson">
+      <p class="lesson-number">01 / Motion</p>
+      <h3>Floating sparks</h3>
+      <p>Create little particles that travel across the screen.</p>
+      <pre><code>.spark {
+  position: fixed;
+  width: 3px;
+  height: 3px;
+  background: #00ff88;
+  box-shadow: 0 0 12px #00ff88;
+  animation: fly 4s linear forwards;
+}
+
+@keyframes fly {
+  to { transform: translateX(100vw) translateY(-20px); }
+}</code></pre>
+    </div>
+    <div class="lesson">
+      <p class="lesson-number">02 / Loading</p>
+      <h3>Loading screen</h3>
+      <p>Give visitors a polished entrance while your page loads.</p>
+      <pre><code>&lt;div class="loader"&gt;
+  LOADING...
+&lt;/div&gt;
+
+.loader {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #08090a;
+  color: #00ff88;
+  z-index: 10;
+}
+
+window.addEventListener("load", () =&gt; {
+  document.querySelector(".loader").remove();
+});</code></pre>
+    </div>
+    <div class="lesson">
+      <p class="lesson-number">03 / Interaction</p>
+      <h3>Clickable status</h3>
+      <p>Let visitors change a message or theme with one click.</p>
+      <pre><code>const status = document.querySelector(".status");
+
+document.querySelector(".button")
+  .addEventListener("click", () =&gt; {
+    status.textContent = "STATUS: AWAKE";
+    status.classList.add("is-active");
+  });</code></pre>
+    </div>
+    <p class="learn-credit">Inspired by Bryce Maggio</p>
+  </aside>
   <script>
     (function () {
       var statusLine = document.querySelector(".status-line");
@@ -128,6 +212,50 @@
           }
         });
       });
+    }());
+  </script>
+  <script>
+    (function () {
+      var learnButton = document.querySelector(".learn-button");
+      var learnPanel = document.querySelector(".learn-panel");
+      var learnBackdrop = document.querySelector(".learn-backdrop");
+      var closeButton = document.querySelector(".learn-close");
+
+      function setLearnPanel(isOpen) {
+        learnButton.setAttribute("aria-expanded", String(isOpen));
+        learnPanel.setAttribute("aria-hidden", String(!isOpen));
+        learnPanel.classList.toggle("is-open", isOpen);
+        learnBackdrop.hidden = !isOpen;
+        if (isOpen) closeButton.focus();
+      }
+
+      learnButton.addEventListener("click", function () {
+        setLearnPanel(!learnPanel.classList.contains("is-open"));
+      });
+      closeButton.addEventListener("click", function () { setLearnPanel(false); });
+      learnBackdrop.addEventListener("click", function () { setLearnPanel(false); });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") setLearnPanel(false);
+      });
+    }());
+  </script>
+  <script>
+    (function () {
+      var verses = [
+        { text: "I can do all things through Christ which strengtheneth me.", reference: "Philippians 4:13" },
+        { text: "The Lord is my shepherd; I shall not want.", reference: "Psalm 23:1" },
+        { text: "Be strong and of a good courage; be not afraid.", reference: "Joshua 1:9" },
+        { text: "Trust in the Lord with all thine heart.", reference: "Proverbs 3:5" },
+        { text: "This is the day which the Lord hath made; we will rejoice and be glad in it.", reference: "Psalm 118:24" },
+        { text: "Let all your things be done with charity.", reference: "1 Corinthians 16:14" },
+        { text: "For with God nothing shall be impossible.", reference: "Luke 1:37" }
+      ];
+      var today = new Date();
+      var dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+      var verse = verses[dayOfYear % verses.length];
+
+      document.getElementById("verse-text").textContent = '"' + verse.text + '"';
+      document.getElementById("verse-reference").textContent = verse.reference;
     }());
   </script>
 </body>
