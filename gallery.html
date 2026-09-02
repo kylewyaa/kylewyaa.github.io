@@ -107,6 +107,26 @@
       text-transform: uppercase;
     }
 
+    .reset-theme {
+      margin-top: 10px;
+      padding: 10px 14px;
+      border: 1px solid #000;
+      background: #fff;
+      color: #000;
+      font: 0.7rem "DM Mono", monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .reset-theme:hover,
+    .reset-theme:focus-visible {
+      background: #000;
+      color: #fff;
+      outline: 2px solid #000;
+      outline-offset: 3px;
+    }
+
     @media (max-width: 780px) {
       .gallery-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -180,12 +200,14 @@
       </button>
     </main>
     <p class="gallery-status" id="gallery-status" aria-live="polite"></p>
+    <button class="reset-theme" id="reset-theme" type="button">Revert to normal background</button>
   </div>
 
   <script>
     (function () {
       var cards = document.querySelectorAll(".theme-card");
       var status = document.getElementById("gallery-status");
+      var resetButton = document.getElementById("reset-theme");
       var savedBackground = localStorage.getItem("home-background");
       var navThemes = [
         ["#111318", "#ffffff"],
@@ -212,6 +234,13 @@
           card.classList.add("is-selected");
           status.textContent = card.querySelector("h3").textContent + " selected across every page.";
         });
+      });
+
+      resetButton.addEventListener("click", function () {
+        localStorage.removeItem("home-background");
+        localStorage.removeItem("home-nav-color");
+        localStorage.removeItem("home-nav-text");
+        window.location.reload();
       });
     }());
   </script>
