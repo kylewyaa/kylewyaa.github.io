@@ -18,7 +18,7 @@
   padding: 28px clamp(20px, 5vw, 72px) 64px;
 }
 
-.portfolio-page nav {
+.portfolio-page > #all-contents > nav {
   margin-bottom: clamp(48px, 9vw, 112px);
   padding: 0 0 18px;
   background: transparent;
@@ -125,10 +125,14 @@
 }
 
 @media (max-width: 780px) {
-  .portfolio-page nav {
+  .portfolio-page > #all-contents > nav {
     align-items: flex-start;
     flex-direction: column;
     gap: 16px;
+  }
+
+  .portfolio-page > #all-contents > nav #nav-ul {
+    flex-wrap: wrap;
   }
 }
 
