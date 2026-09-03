@@ -678,6 +678,30 @@ nav h1:focus-visible {
   color: #ebe2e2;
 }
 
+html {
+  --theme-nav: #ffffff;
+  --theme-nav-text: #000000;
+  --theme-accent: #147d91;
+  --theme-surface: rgba(255, 255, 255, 0.94);
+}
+
+body[data-wallpaper-theme] nav {
+  background: var(--theme-nav);
+  border-color: color-mix(in srgb, var(--theme-nav-text) 24%, transparent);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+}
+
+body[data-wallpaper-theme] nav h1,
+body[data-wallpaper-theme] nav a {
+  color: var(--theme-nav-text);
+}
+
+body[data-wallpaper-theme] nav a:hover,
+body[data-wallpaper-theme] nav a[aria-current="page"] {
+  background: var(--theme-nav-text);
+  color: var(--theme-accent);
+}
+
 .schedule-page {
   display: block;
   max-width: 1180px;

@@ -174,27 +174,27 @@
     </header>
 
     <main class="gallery-grid" aria-label="Background themes">
-      <button class="theme-card" type="button" data-background="https://static.vecteezy.com/system/resources/previews/033/331/607/non_2x/samurai-wallpaper-4k-desktop-samurai-background-midnight-vibe-and-full-moon-landscape-view-illustration-background-vector.jpg">
+      <button class="theme-card" type="button" data-theme="midnight" data-background="https://static.vecteezy.com/system/resources/previews/033/331/607/non_2x/samurai-wallpaper-4k-desktop-samurai-background-midnight-vibe-and-full-moon-landscape-view-illustration-background-vector.jpg">
         <img src="https://static.vecteezy.com/system/resources/previews/033/331/607/non_2x/samurai-wallpaper-4k-desktop-samurai-background-midnight-vibe-and-full-moon-landscape-view-illustration-background-vector.jpg" alt="Midnight samurai theme preview" />
         <span class="theme-card-copy"><span class="theme-number">01 / NIGHT</span><h3>Midnight</h3><p>Deep space and quiet contrast for a focused home page.</p></span>
       </button>
-      <button class="theme-card" type="button" data-background="https://t3.ftcdn.net/jpg/06/28/87/58/360_F_628875836_M1ooUrOtrNA20fOok3OiHBA6uYIe5mqA.jpg">
+      <button class="theme-card" type="button" data-theme="open" data-background="https://t3.ftcdn.net/jpg/06/28/87/58/360_F_628875836_M1ooUrOtrNA20fOok3OiHBA6uYIe5mqA.jpg">
         <img src="https://t3.ftcdn.net/jpg/06/28/87/58/360_F_628875836_M1ooUrOtrNA20fOok3OiHBA6uYIe5mqA.jpg" alt="Wide open mountain theme preview" />
         <span class="theme-card-copy"><span class="theme-number">02 / OPEN</span><h3>Wide Open</h3><p>Big skies and a calm landscape for a spacious feel.</p></span>
       </button>
-      <button class="theme-card" type="button" data-background="https://cdn.wallpapersafari.com/17/73/0UfKOg.jpg">
+      <button class="theme-card" type="button" data-theme="still" data-background="https://cdn.wallpapersafari.com/17/73/0UfKOg.jpg">
         <img src="https://cdn.wallpapersafari.com/17/73/0UfKOg.jpg" alt="Lake and forest theme preview" />
         <span class="theme-card-copy"><span class="theme-number">03 / STILL</span><h3>Still Water</h3><p>Soft reflections and trees for a slower, quieter atmosphere.</p></span>
       </button>
-      <button class="theme-card" type="button" data-background="https://c4.wallpaperflare.com/wallpaper/360/968/892/anime-original-building-city-original-anime-hd-wallpaper-preview.jpg">
+      <button class="theme-card" type="button" data-theme="form" data-background="https://c4.wallpaperflare.com/wallpaper/360/968/892/anime-original-building-city-original-anime-hd-wallpaper-preview.jpg">
         <img src="https://c4.wallpaperflare.com/wallpaper/360/968/892/anime-original-building-city-original-anime-hd-wallpaper-preview.jpg" alt="Modern architecture theme preview" />
         <span class="theme-card-copy"><span class="theme-number">04 / FORM</span><h3>Structure</h3><p>Clean architecture and strong lines for a modern portfolio.</p></span>
       </button>
-      <button class="theme-card" type="button" data-background="https://static.designboom.com/wp-content/uploads/2020/04/studio-ghibli-free-backgrounds-video-calls-animated-feature-films-designboom-2.jpg">
+      <button class="theme-card" type="button" data-theme="studio" data-background="https://static.designboom.com/wp-content/uploads/2020/04/studio-ghibli-free-backgrounds-video-calls-animated-feature-films-designboom-2.jpg">
         <img src="https://static.designboom.com/wp-content/uploads/2020/04/studio-ghibli-free-backgrounds-video-calls-animated-feature-films-designboom-2.jpg" alt="Creative workspace theme preview" />
         <span class="theme-card-copy"><span class="theme-number">05 / WORK</span><h3>Studio</h3><p>A creative workspace mood for making and building things.</p></span>
       </button>
-      <button class="theme-card" type="button" data-background="https://cdn.wallpapersafari.com/78/79/dGlFYu.png">
+      <button class="theme-card" type="button" data-theme="flow" data-background="https://cdn.wallpapersafari.com/78/79/dGlFYu.png">
         <img src="https://cdn.wallpapersafari.com/78/79/dGlFYu.png" alt="Ocean theme preview" />
         <span class="theme-card-copy"><span class="theme-number">06 / FLOW</span><h3>Blue Horizon</h3><p>Open ocean energy for a brighter, more adventurous page.</p></span>
       </button>
@@ -213,6 +213,7 @@
         if (card.dataset.background === savedBackground) card.classList.add("is-selected");
         card.addEventListener("click", function () {
           localStorage.setItem("home-background", card.dataset.background);
+          localStorage.setItem("home-theme", card.dataset.theme);
           cards.forEach(function (item) { item.classList.remove("is-selected"); });
           card.classList.add("is-selected");
           status.textContent = card.querySelector("h3").textContent + " selected across every page.";
@@ -221,6 +222,7 @@
 
       resetButton.addEventListener("click", function () {
         localStorage.removeItem("home-background");
+        localStorage.removeItem("home-theme");
         window.location.reload();
       });
     }());

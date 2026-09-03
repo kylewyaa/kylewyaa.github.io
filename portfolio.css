@@ -21,14 +21,14 @@
 .portfolio-page > #all-contents > nav {
   margin-bottom: clamp(48px, 9vw, 112px);
   padding: 16px 20px;
-  background: rgba(255, 253, 248, 0.94);
-  border: 1px solid rgba(24, 33, 28, 0.18);
+  background: var(--theme-surface, rgba(255, 253, 248, 0.94));
+  border: 1px solid color-mix(in srgb, var(--theme-nav-text, #18211c) 22%, transparent);
   border-radius: 8px;
   backdrop-filter: blur(12px);
 }
 
 .portfolio-page nav h1 {
-  color: #18211c;
+  color: var(--theme-nav-text, #18211c);
   font-size: 0.78rem;
   letter-spacing: 0.16em;
 }
@@ -41,7 +41,7 @@
   display: block;
   padding: 8px 12px;
   border-radius: 999px;
-  color: #6b736e;
+  color: color-mix(in srgb, var(--theme-nav-text, #18211c) 68%, transparent);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -50,8 +50,8 @@
 
 .portfolio-page .nav-li a:hover,
 .portfolio-page .nav-li a[aria-current="page"] {
-  background: #18211c;
-  color: #c7f36b;
+  background: var(--theme-nav, #18211c);
+  color: var(--theme-accent, #c7f36b);
 }
 
 .portfolio-page main {
