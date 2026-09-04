@@ -36,6 +36,9 @@
           <a href="portfolio.html" aria-current="page">Portfolio</a>
         </li>
         <li class="nav-li">
+          <a href="trading.html">Trading</a>
+        </li>
+        <li class="nav-li">
           <a href="Schedule.html">Schedule</a>
         </li>
         <li class="nav-li">
@@ -49,8 +52,16 @@
 
     <main>
       <div class="content">
-        <h1>Portfolio</h1>
-        <h3>FSD Projects</h3>
+        <section class="portfolio-intro" aria-labelledby="portfolio-title">
+          <div class="portfolio-heading">
+            <p class="eyebrow">SELECTED WORK / 2026</p>
+            <h1 id="portfolio-title">Portfolio</h1>
+            <h3>FSD Projects</h3>
+          </div>
+          <div class="globe-wrap">
+            <canvas id="globe" aria-label="Interactive rotating globe"></canvas>
+          </div>
+        </section>
         <ul id="portfolio">
           <li>
             <a href="fsd-projects/platformer/">Platformer: A cannon-dodging adventure game for Halleb0t</a>
@@ -79,6 +90,7 @@
         <nav class="footer-nav">
           <a href="index.html">Home</a>
           <a href="portfolio.html">Portfolio</a>
+          <a href="trading.html">Trading</a>
           <a href="Schedule.html">Schedule</a>
           <a href="skybound.html">Skybound</a>
           <a href="gallery.html">Gallery</a>
@@ -93,6 +105,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
+  <script type="module" src="globe.js"></script>
 </body>
 
 </html>

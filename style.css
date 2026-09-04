@@ -417,7 +417,16 @@ h2 {
   animation: status-glow 2.4s ease-in-out infinite;
 }
 
+.status-line[data-state="trading"] .status-icon {
+  animation: status-trade 1s ease-in-out infinite;
+}
+
 .status-line[data-state="awake"] svg {
+  width: 32px;
+  height: 24px;
+}
+
+.status-line[data-state="trading"] svg {
   width: 32px;
   height: 24px;
 }
@@ -437,6 +446,12 @@ h2 {
 @keyframes status-blink {
   50% {
     transform: translateY(-2px);
+  }
+}
+
+@keyframes status-trade {
+  50% {
+    transform: translateY(-3px) scale(1.08);
   }
 }
 

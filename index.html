@@ -70,6 +70,7 @@
       <ul id="nav-ul">
         <li class="nav-li"><a href="index.html">Home</a></li>
         <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
+        <li class="nav-li"><a href="trading.html">Trading</a></li>
         <li class="nav-li"><a href="Schedule.html">Schedule</a></li>
         <li class="nav-li"><a href="skybound.html">Skybound</a></li>
         <li class="nav-li"><a href="gallery.html">Gallery</a></li>
@@ -94,7 +95,7 @@
           <ul>
             <li data-status="coding" role="button" tabindex="0">Coding</li>
             <li data-status="awake" role="button" tabindex="0">Fashion</li>
-            <li data-status="sleeping" role="button" tabindex="0">Sleeping</li>
+            <li data-status="trading" role="button" tabindex="0">Trading</li>
           </ul>
         </div>
         <section class="daily-verse" aria-labelledby="daily-verse-title">
@@ -184,9 +185,9 @@ document.querySelector(".button")
 
       function updateStatusIcon() {
         var status = statusCopy.textContent.toUpperCase();
-        var state = status.indexOf("SLEEPING") > -1 ? "sleeping" : status.indexOf("CODING") > -1 ? "coding" : status.indexOf("AWAKE") > -1 ? "awake" : "default";
+        var state = status.indexOf("TRADING") > -1 ? "trading" : status.indexOf("CODING") > -1 ? "coding" : status.indexOf("AWAKE") > -1 ? "awake" : "default";
         var icons = {
-          sleeping: "zzz",
+          trading: "<svg viewBox=\"0 0 32 24\" role=\"img\" aria-label=\"Trading\"><path d=\"M3 19 11 11l5 4 10-10\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/><path d=\"M19 5h7v7\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></svg>",
           coding: "<svg viewBox=\"0 0 32 24\" role=\"img\" aria-label=\"Coding\"><rect x=\"2\" y=\"2\" width=\"28\" height=\"17\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/><path d=\"M10 9l3 3-3 3M16 15h6M10 22h12M16 19v3\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.8\"/></svg>",
           awake: "<svg viewBox=\"0 0 32 24\" role=\"img\" aria-label=\"Awake\"><circle cx=\"10\" cy=\"9\" r=\"4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/><path d=\"M10 1v3M10 14v3M2 9h3M15 9h3M4.3 3.3l2.1 2.1M13.6 12.6l2.1 2.1\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-width=\"1.5\"/><path d=\"M9 20h15a4 4 0 0 0 .4-8 6 6 0 0 0-11.2-1.4A4.5 4.5 0 0 0 9 20Z\" fill=\"none\" stroke=\"currentColor\" stroke-linejoin=\"round\" stroke-width=\"1.8\"/></svg>",
           default: "•"
@@ -212,6 +213,7 @@ document.querySelector(".button")
           }
         });
       });
+
     }());
   </script>
   <script>

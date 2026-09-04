@@ -1,0 +1,47 @@
+.trading-page { min-height: 100vh; background: #08090a; color: #fff; }
+.trading-page #all-contents { max-width: 1500px; }
+.trading-page nav { margin-bottom: clamp(48px, 9vw, 100px); }
+.trading-main { display: grid; grid-template-columns: minmax(220px, .8fr) minmax(420px, 1.5fr); align-items: start; min-height: 0; gap: clamp(32px, 7vw, 100px); }
+.trading-hero h2 { margin: 14px 0 22px; color: #fff; font-size: clamp(3.7rem, 8vw, 7.5rem); line-height: .86; letter-spacing: -.06em; }
+.trading-hero h2 span { color: #888; }
+.trading-kicker { margin: 0; color: #999; font: 700 .68rem "DM Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
+.trading-note { max-width: 350px; color: #aaa; font-size: .9rem; line-height: 1.6; }
+.account-balance { display: grid; gap: 8px; margin-top: 46px; padding-top: 14px; border-top: 1px solid #555; }
+.account-balance span { color: #999; font: .68rem "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
+.account-balance strong { font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -.04em; }
+.trading-terminal { padding: 20px; border: 1px solid #444; background: #111; box-shadow: 10px 10px 0 #000; }
+.trading-terminal.is-hidden { display: none; }
+.trading-workspace { grid-column: 2; min-width: 0; }
+.terminal-tabs { display: flex; gap: 20px; border-bottom: 1px solid #444; }
+.terminal-tab { padding: 0 0 10px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #777; font: 700 .7rem "DM Mono", monospace; text-transform: uppercase; cursor: pointer; }
+.terminal-tab.is-active, .terminal-tab:hover { border-bottom-color: #fff; color: #fff; }
+.terminal-header { display: flex; align-items: end; justify-content: space-between; gap: 20px; min-height: 64px; padding: 20px 0 14px; }
+.terminal-header h1 { margin: 5px 0 0; font-size: clamp(1.4rem, 3vw, 2.3rem); letter-spacing: -.04em; }
+.quote { min-width: 7ch; font: 1.5rem "DM Mono", monospace; font-variant-numeric: tabular-nums; text-align: right; }
+.terminal-chart { height: 340px; border: 1px solid #333; }
+.terminal-chart iframe { width: 100%; height: 100%; border: 0; }
+.order-bar { display: flex; align-items: end; gap: 8px; padding-top: 18px; }
+.order-bar label { display: grid; gap: 6px; margin-right: auto; color: #aaa; font: .68rem "DM Mono", monospace; text-transform: uppercase; }
+.order-bar input, .order-button { min-height: 40px; border: 1px solid #fff; border-radius: 0; background: transparent; color: #fff; font: 700 .72rem "Space Grotesk", sans-serif; }
+.order-bar input { width: 110px; padding: 0 9px; }
+.order-button { padding: 0 14px; cursor: pointer; text-transform: uppercase; }
+.order-button:hover:not(:disabled), .order-button:focus-visible:not(:disabled) { background: #fff; color: #111; }
+.order-button:disabled { border-color: #444; color: #555; cursor: not-allowed; }
+.position-line { min-height: 1.4em; margin: 14px 0 0; color: #999; font: .7rem "DM Mono", monospace; }
+.portfolio-panel { min-height: 450px; padding: 20px; border: 1px solid #444; background: #111; box-shadow: 10px 10px 0 #000; }
+.portfolio-panel h1 { margin: 8px 0 24px; font-size: clamp(2rem, 5vw, 4rem); letter-spacing: -.05em; }
+.portfolio-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-bottom: 30px; background: #444; }
+.portfolio-stats div { display: grid; gap: 10px; padding: 16px; background: #111; }
+.portfolio-stats span, .active-trades-heading span { color: #999; font: .68rem "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.portfolio-stats strong { font: 1.35rem "DM Mono", monospace; }
+.portfolio-stats strong.negative { color: #aaa; }
+.active-trades { border-top: 1px solid #444; }
+.active-trades-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.active-trades-heading h2 { margin: 18px 0 12px; color: #fff; font-size: 1.2rem; letter-spacing: -.02em; text-shadow: none; }
+.active-trades p { color: #999; font: .72rem "DM Mono", monospace; }
+#active-trades-list { margin: 0; padding: 0; list-style: none; }
+#active-trades-list li { display: grid; grid-template-columns: 1fr auto auto; gap: 16px; min-height: 42px; padding: 12px 0; border-top: 1px solid #333; color: #ccc; font: .72rem "DM Mono", monospace; }
+#active-trades-list span { color: #888; }
+#active-trades-list em { color: #fff; font-style: normal; }
+@media (max-width: 780px) { .trading-main { grid-template-columns: 1fr; } .trading-workspace { grid-column: 1; } .account-balance { margin-top: 28px; } }
+@media (max-width: 520px) { .trading-terminal { padding: 14px; } .terminal-chart { height: 260px; } .order-bar { flex-wrap: wrap; } .order-bar label { width: 100%; margin-right: 0; } }

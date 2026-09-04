@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trading | Kyle's World</title>
+  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="trading.css" />
+  <script src="theme.js" defer></script>
+</head>
+
+<body class="trading-page">
+  <section class="startup-screen" aria-label="Loading Kyle's World">
+    <div class="startup-mark" aria-hidden="true">K<span>.</span></div>
+    <div class="startup-meta"><p>WELCOME TO</p><h2>Loading</h2></div>
+    <div class="startup-progress" aria-hidden="true"><span></span></div>
+    <p class="startup-status">STATUS: TRADING <span>///</span> 007</p>
+  </section>
+  <script src="spinner.js"></script>
+
+  <div id="all-contents">
+    <nav>
+      <h1>Kyle Campos</h1>
+      <ul id="nav-ul">
+        <li class="nav-li"><a href="index.html">Home</a></li>
+        <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
+        <li class="nav-li"><a href="trading.html" aria-current="page">Trading</a></li>
+        <li class="nav-li"><a href="Schedule.html">Schedule</a></li>
+        <li class="nav-li"><a href="skybound.html">Skybound</a></li>
+        <li class="nav-li"><a href="gallery.html">Gallery</a></li>
+      </ul>
+    </nav>
+
+    <main class="trading-main">
+      <section class="trading-hero">
+        <p class="trading-kicker">Paper account / Live market reference</p>
+        <h2>Trade the<br /><span>moment.</span></h2>
+        <p class="trading-note">Start with $100,000. Every position is simulated, and every bad trade comes out of your balance.</p>
+        <div class="account-balance"><span>Available balance</span><strong id="account-balance">$100,000.00</strong></div>
+      </section>
+
+      <div class="trading-workspace">
+        <div class="terminal-tabs">
+          <button class="terminal-tab is-active" type="button" data-market="forex">Forex</button>
+          <button class="terminal-tab" type="button" data-market="crypto">Crypto</button>
+          <button class="terminal-tab" type="button" data-market="portfolio">Portfolio</button>
+        </div>
+        <section class="trading-terminal" aria-labelledby="terminal-title">
+        <div class="terminal-header">
+          <div><p class="trading-kicker">Market price</p><h1 id="terminal-title">EUR / USD</h1></div>
+          <label class="pair-picker">Pair
+            <select id="pair-selector">
+              <option value="EURUSD">EUR / USD</option>
+              <option value="GBPUSD">GBP / USD</option>
+              <option value="USDJPY">USD / JPY</option>
+              <option value="AUDUSD">AUD / USD</option>
+            </select>
+          </label>
+          <strong class="quote" id="quote">1.08420</strong>
+        </div>
+        <div class="terminal-chart">
+          <iframe id="tradingview-chart" title="TradingView EUR USD forex chart" src="https://www.tradingview.com/widgetembed/?symbol=FX%3AEURUSD&interval=15&hidesidetoolbar=1&symboledit=1&saveimage=0&toolbar_bg=%23080808&studies=%5B%5D&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&hide_top_toolbar=1&hide_legend=0&hide_volume=1&allow_symbol_change=0&calendar=0" loading="lazy" frameborder="0"></iframe>
+        </div>
+        <div class="order-bar">
+          <label>Units <input id="trade-units" type="number" value="1000" min="1" step="1" /></label>
+          <button class="order-button buy" type="button" data-side="buy">Buy</button>
+          <button class="order-button sell" type="button" data-side="sell">Sell</button>
+          <button class="order-button close" id="close-trade" type="button" disabled>Close</button>
+        </div>
+        <p class="position-line" id="position-line">No open position. Watch the quote and choose a side.</p>
+        </section>
+
+        <section class="portfolio-panel" id="portfolio-panel" aria-labelledby="portfolio-title" hidden>
+        <p class="trading-kicker">Account overview</p>
+        <h1 id="portfolio-title">My portfolio</h1>
+        <div class="portfolio-stats">
+          <div><span>Balance</span><strong id="portfolio-balance">$100,000.00</strong></div>
+          <div><span>This week</span><strong id="weekly-earnings">$0.00</strong></div>
+          <div><span>Win / loss</span><strong id="win-loss">0 / 0</strong></div>
+        </div>
+        <div class="active-trades">
+          <div class="active-trades-heading"><h2>Active trades</h2><span id="active-count">0 open</span></div>
+          <p id="active-trades-empty">No active trades. Open a position from the market tab.</p>
+          <ul id="active-trades-list"></ul>
+        </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="trading.js"></script>
+</body>
+
+</html>
