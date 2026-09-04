@@ -78,6 +78,7 @@
   var terminal = document.querySelector(".trading-terminal");
   var loginToggle = document.getElementById("login-toggle");
   var loginForm = document.getElementById("login-form");
+  var cloudAccounts = {};
 
   function money(value) { return "$" + value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
   function market() { return markets[activeMarket].pairs[currentPair]; }
@@ -85,6 +86,9 @@
     if (!username) return;
     accounts[username] = state;
     localStorage.setItem("kyles-paper-accounts", JSON.stringify(accounts));
+    if (window.firebaseCloud) {
+      window.firebaseCloud.publish(username, state).catch(function (error) { console.warn("Cloud leaderboard unavailable", error); });
+    }
     renderLeaderboard();
   }
   function renderLeaderboard() {
@@ -92,7 +96,8 @@
     Object.keys(accounts).forEach(function (accountName) {
       if (accounts[accountName].day !== today) { accounts[accountName].day = today; accounts[accountName].dailyEarnings = 0; }
     });
-    var entries = Object.keys(accounts).map(function (accountName) { return { name: accountName, data: accounts[accountName] }; }).sort(function (a, b) { return b.data.dailyEarnings - a.data.dailyEarnings; });
+    var combinedAccounts = Object.assign({}, accounts, cloudAccounts);
+    var entries = Object.keys(combinedAccounts).map(function (accountName) { return { name: accountName, data: combinedAccounts[accountName] }; }).sort(function (a, b) { return b.data.dailyEarnings - a.data.dailyEarnings; });
     leaderboardEmpty.hidden = entries.length > 0;
     leaderboardList.innerHTML = entries.map(function (entry, index) {
       var result = entry.data.dailyEarnings || 0;
@@ -188,6 +193,22 @@
       renderLeaderboard();
     }
   });
+  function connectCloudLeaderboard() {
+    if (!window.firebaseCloud) {
+      window.setTimeout(connectCloudLeaderboard, 100);
+      return;
+    }
+    window.firebaseCloud.ready.then(function () {
+      window.firebaseCloud.subscribe(function (entries) {
+        cloudAccounts = {};
+        entries.forEach(function (entry) {
+          if (entry.username) cloudAccounts[entry.username] = entry;
+        });
+        renderLeaderboard();
+      });
+      if (username) window.firebaseCloud.publish(username, state).catch(function (error) { console.warn("Cloud leaderboard unavailable", error); });
+    }).catch(function (error) { console.warn("Firebase sign-in unavailable", error); });
+  }
   document.getElementById("signup-form").addEventListener("submit", function (event) {
     event.preventDefault();
     username = document.getElementById("signup-username").value.trim();
@@ -288,4 +309,5 @@
   setInterval(runBotTrading, 8000);
   updatePortfolio();
   selectMarket(username ? "forex" : "signup");
+  connectCloudLeaderboard();
 }());

@@ -29,9 +29,11 @@
       </section>
     </main>
   </div>
+  <script type="module" src="firebase-config.js"></script>
   <script>
     (function () {
       var accounts = JSON.parse(localStorage.getItem("kyles-paper-accounts") || "{}");
+      var cloudAccounts = {};
       var today = new Date().toISOString().slice(0, 10);
       Object.keys(accounts).forEach(function (username) {
         if (accounts[username].day !== today) {
@@ -40,13 +42,31 @@
         }
       });
       localStorage.setItem("kyles-paper-accounts", JSON.stringify(accounts));
-      var list = Object.keys(accounts).map(function (username) { return { username: username, data: accounts[username] }; }).sort(function (a, b) { return b.data.dailyEarnings - a.data.dailyEarnings; });
+      function render() {
+        var combinedAccounts = Object.assign({}, accounts, cloudAccounts);
+        var list = Object.keys(combinedAccounts).map(function (username) { return { username: username, data: combinedAccounts[username] }; }).sort(function (a, b) { return b.data.dailyEarnings - a.data.dailyEarnings; });
+        renderList(list);
+      }
       var container = document.getElementById("leaderboard-list");
-      document.getElementById("leaderboard-empty").hidden = list.length > 0;
-      container.innerHTML = list.map(function (entry, index) {
-        var result = entry.data.dailyEarnings || 0;
-        return "<div class=\"leaderboard-row\"><strong>" + (index + 1) + "</strong><span>" + entry.username + "</span><em class=\"" + (result < 0 ? "negative" : "") + "\">" + (result >= 0 ? "+" : "") + result.toLocaleString("en-US", { style: "currency", currency: "USD" }) + "</em><span>" + entry.data.balance.toLocaleString("en-US", { style: "currency", currency: "USD" }) + "</span></div>";
-      }).join("");
+      function renderList(list) {
+        document.getElementById("leaderboard-empty").hidden = list.length > 0;
+        container.innerHTML = list.map(function (entry, index) {
+          var result = entry.data.dailyEarnings || 0;
+          return "<div class=\"leaderboard-row\"><strong>" + (index + 1) + "</strong><span>" + entry.username + "</span><em class=\"" + (result < 0 ? "negative" : "") + "\">" + (result >= 0 ? "+" : "") + result.toLocaleString("en-US", { style: "currency", currency: "USD" }) + "</em><span>" + entry.data.balance.toLocaleString("en-US", { style: "currency", currency: "USD" }) + "</span></div>";
+        }).join("");
+      }
+      render();
+      function connectCloudLeaderboard() {
+        if (!window.firebaseCloud) { window.setTimeout(connectCloudLeaderboard, 100); return; }
+        window.firebaseCloud.ready.then(function () {
+          window.firebaseCloud.subscribe(function (entries) {
+            cloudAccounts = {};
+            entries.forEach(function (entry) { if (entry.username) cloudAccounts[entry.username] = entry; });
+            render();
+          });
+        }).catch(function (error) { console.warn("Firebase sign-in unavailable", error); });
+      }
+      connectCloudLeaderboard();
     }());
   </script>
 </body>
