@@ -1,7 +1,8 @@
 (function () {
   var storageKey = "kyles-paper-portfolio";
   var saved = JSON.parse(localStorage.getItem(storageKey) || "null");
-  var state = saved || { balance: 100000, weeklyEarnings: 0, wins: 0, losses: 0, trades: [] };
+  var state = saved || { balance: 100000, weeklyEarnings: 0, wins: 0, losses: 0, trades: [], performance: [100000] };
+  state.performance = state.performance || [state.balance];
   state.trades.forEach(function (trade) {
     trade.market = trade.market || "forex";
     trade.pairKey = trade.pairKey || "EURUSD";
@@ -25,6 +26,8 @@
     } }
   };
   var balanceElement = document.getElementById("account-balance");
+  var performanceChange = document.getElementById("performance-change");
+  var performancePath = document.getElementById("performance-path");
   var portfolioBalance = document.getElementById("portfolio-balance");
   var weeklyEarnings = document.getElementById("weekly-earnings");
   var winLoss = document.getElementById("win-loss");
@@ -44,6 +47,28 @@
   function money(value) { return "$" + value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
   function market() { return markets[activeMarket].pairs[currentPair]; }
   function save() { localStorage.setItem(storageKey, JSON.stringify(state)); }
+  function openProfitLoss() {
+    return state.trades.reduce(function (total, trade) {
+      var livePrice = trade.market === activeMarket && trade.pairKey === currentPair ? currentPrice : markets[trade.market].pairs[trade.pairKey].price;
+      var direction = trade.side === "buy" ? 1 : -1;
+      return total + (livePrice - trade.entry) * trade.units * direction;
+    }, 0);
+  }
+  function updatePerformance() {
+    var change = state.balance + openProfitLoss() - 100000;
+    var percent = change / 100000 * 100;
+    performanceChange.textContent = (change >= 0 ? "+" : "-") + money(Math.abs(change)) + " / " + (percent >= 0 ? "+" : "") + percent.toFixed(2) + "%";
+    performanceChange.classList.toggle("negative", change < 0);
+    var history = state.performance.slice(-40);
+    var minimum = Math.min.apply(null, history);
+    var maximum = Math.max.apply(null, history);
+    var range = maximum - minimum || 1;
+    performancePath.setAttribute("points", history.map(function (value, index) {
+      var x = index / Math.max(history.length - 1, 1) * 240;
+      var y = 58 - ((value - minimum) / range * 52);
+      return x.toFixed(1) + "," + y.toFixed(1);
+    }).join(" "));
+  }
   function updatePortfolio() {
     balanceElement.textContent = money(state.balance);
     portfolioBalance.textContent = money(state.balance);
@@ -59,6 +84,7 @@
       return "<li><strong>" + trade.side.toUpperCase() + " " + trade.pair + "</strong><span>" + trade.units + " units at " + trade.entry.toFixed(trade.decimals) + "</span><em>" + (liveResult >= 0 ? "+" : "") + money(liveResult) + "</em></li>";
     }).join("");
     closeButton.disabled = state.trades.length === 0;
+    updatePerformance();
   }
   function updateChart() {
     chart.src = "https://www.tradingview.com/widgetembed/?symbol=" + market().symbol + "&interval=15&hidesidetoolbar=1&symboledit=1&saveimage=0&toolbar_bg=%23080808&studies=%5B%5D&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&hide_top_toolbar=1&hide_legend=0&hide_volume=1&allow_symbol_change=0&calendar=0";
@@ -104,6 +130,8 @@
     if (activeMarket === "portfolio") return;
     currentPrice = Math.max(market().decimals === 2 ? 1 : 0.5, currentPrice + (Math.random() - 0.48) * (activeMarket === "crypto" ? currentPrice * 0.004 : 0.00035));
     markets[activeMarket].pairs[currentPair].price = currentPrice;
+    state.performance.push(state.balance + openProfitLoss());
+    if (state.performance.length > 100) state.performance.shift();
     quote.textContent = currentPrice.toFixed(market().decimals);
     updatePortfolio();
   }, 1800);

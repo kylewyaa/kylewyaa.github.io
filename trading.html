@@ -37,7 +37,15 @@
         <p class="trading-kicker">Paper account / Live market reference</p>
         <h2>Trade the<br /><span>moment.</span></h2>
         <p class="trading-note">Start with $100,000. Every position is simulated, and every bad trade comes out of your balance.</p>
-        <div class="account-balance"><span>Available balance</span><strong id="account-balance">$100,000.00</strong></div>
+        <div class="account-summary">
+          <div class="account-balance"><span>Available balance</span><strong id="account-balance">$100,000.00</strong></div>
+          <div class="performance-card">
+            <div class="performance-heading"><span>Performance</span><strong id="performance-change">+$0.00 / 0.00%</strong></div>
+            <svg id="performance-line" viewBox="0 0 240 64" role="img" aria-label="Account performance line chart" preserveAspectRatio="none">
+              <polyline id="performance-path" points="0,32 240,32" />
+            </svg>
+          </div>
+        </div>
       </section>
 
       <div class="trading-workspace">
