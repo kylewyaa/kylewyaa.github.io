@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign up | Kyle's World</title>
+  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="trading.css" />
+  <script src="theme.js" defer></script>
+</head>
+<body class="trading-page account-page">
+  <div id="all-contents">
+    <nav>
+      <h1>Kyle Campos</h1>
+      <ul id="nav-ul">
+        <li class="nav-li"><a href="index.html">Home</a></li>
+        <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
+        <li class="nav-li"><a href="trading.html">Trading</a></li>
+        <li class="nav-li"><a href="leaderboard.html">Leaderboard</a></li>
+        <li class="nav-li"><a href="signup.html" aria-current="page">Sign up</a></li>
+      </ul>
+    </nav>
+    <main class="account-main">
+      <section class="account-copy">
+        <p class="trading-kicker">Paper trading / New account</p>
+        <h2>Make your<br /><span>move.</span></h2>
+        <p class="trading-note">Choose a username and password to start with $100,000 in simulated buying power.</p>
+      </section>
+      <form class="account-form" id="signup-form">
+        <p class="trading-kicker">Create account</p>
+        <label>Username <input id="signup-username" required minlength="3" maxlength="18" autocomplete="username" /></label>
+        <label>Password <input id="signup-password" required minlength="4" type="password" autocomplete="new-password" /></label>
+        <button type="submit">Start trading</button>
+        <p class="form-message" id="signup-message" aria-live="polite"></p>
+        <small>Demo accounts are saved only in this browser. No email required.</small>
+      </form>
+    </main>
+  </div>
+  <script>
+    (function () {
+      var form = document.getElementById("signup-form");
+      var message = document.getElementById("signup-message");
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var username = document.getElementById("signup-username").value.trim();
+        var password = document.getElementById("signup-password").value;
+        var accounts = JSON.parse(localStorage.getItem("kyles-paper-accounts") || "{}");
+        if (accounts[username]) {
+          message.textContent = "That username is taken on this browser.";
+          return;
+        }
+        accounts[username] = { password: password, balance: 100000, weeklyEarnings: 0, wins: 0, losses: 0, trades: [], performance: [100000], day: new Date().toISOString().slice(0, 10), dailyEarnings: 0 };
+        localStorage.setItem("kyles-paper-accounts", JSON.stringify(accounts));
+        localStorage.setItem("kyles-active-user", username);
+        window.location.href = "trading.html";
+      });
+    }());
+  </script>
+</body>
+</html>

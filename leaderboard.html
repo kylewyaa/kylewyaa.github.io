@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leaderboard | Kyle's World</title>
+  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="trading.css" />
+  <script src="theme.js" defer></script>
+</head>
+<body class="trading-page leaderboard-page">
+  <div id="all-contents">
+    <nav>
+      <h1>Kyle Campos</h1>
+      <ul id="nav-ul">
+        <li class="nav-li"><a href="index.html">Home</a></li>
+        <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
+        <li class="nav-li"><a href="trading.html">Trading</a></li>
+        <li class="nav-li"><a href="leaderboard.html" aria-current="page">Leaderboard</a></li>
+        <li class="nav-li"><a href="signup.html">Sign up</a></li>
+      </ul>
+    </nav>
+    <main class="leaderboard-main">
+      <header><p class="trading-kicker">Paper trading / Today</p><h2>Top traders<span>.</span></h2><p class="trading-note">Ranked by realized profit or loss closed today.</p></header>
+      <section class="leaderboard-table" aria-label="Daily trading leaderboard">
+        <div class="leaderboard-row leaderboard-heading"><span>#</span><span>Trader</span><span>Daily P/L</span><span>Balance</span></div>
+        <div id="leaderboard-list"></div>
+        <p id="leaderboard-empty">No trades closed today. Be the first on the board.</p>
+      </section>
+    </main>
+  </div>
+  <script>
+    (function () {
+      var accounts = JSON.parse(localStorage.getItem("kyles-paper-accounts") || "{}");
+      var today = new Date().toISOString().slice(0, 10);
+      Object.keys(accounts).forEach(function (username) {
+        if (accounts[username].day !== today) {
+          accounts[username].day = today;
+          accounts[username].dailyEarnings = 0;
+        }
+      });
+      localStorage.setItem("kyles-paper-accounts", JSON.stringify(accounts));
+      var list = Object.keys(accounts).map(function (username) { return { username: username, data: accounts[username] }; }).sort(function (a, b) { return b.data.dailyEarnings - a.data.dailyEarnings; });
+      var container = document.getElementById("leaderboard-list");
+      document.getElementById("leaderboard-empty").hidden = list.length > 0;
+      container.innerHTML = list.map(function (entry, index) {
+        var result = entry.data.dailyEarnings || 0;
+        return "<div class=\"leaderboard-row\"><strong>" + (index + 1) + "</strong><span>" + entry.username + "</span><em class=\"" + (result < 0 ? "negative" : "") + "\">" + (result >= 0 ? "+" : "") + result.toLocaleString("en-US", { style: "currency", currency: "USD" }) + "</em><span>" + entry.data.balance.toLocaleString("en-US", { style: "currency", currency: "USD" }) + "</span></div>";
+      }).join("");
+    }());
+  </script>
+</body>
+</html>

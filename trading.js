@@ -1,7 +1,17 @@
 (function () {
-  var storageKey = "kyles-paper-portfolio";
-  var saved = JSON.parse(localStorage.getItem(storageKey) || "null");
-  var state = saved || { balance: 100000, weeklyEarnings: 0, wins: 0, losses: 0, trades: [], performance: [100000] };
+  if (!localStorage.getItem("kyles-paper-reset-v2")) {
+    localStorage.removeItem("kyles-paper-accounts");
+    localStorage.removeItem("kyles-active-user");
+    localStorage.setItem("kyles-paper-reset-v2", "true");
+  }
+  var username = localStorage.getItem("kyles-active-user");
+  var accounts = JSON.parse(localStorage.getItem("kyles-paper-accounts") || "{}");
+  var state = username && accounts[username] ? accounts[username] : { balance: 100000, weeklyEarnings: 0, wins: 0, losses: 0, trades: [], performance: [100000], day: new Date().toISOString().slice(0, 10), dailyEarnings: 0 };
+  var today = new Date().toISOString().slice(0, 10);
+  if (state.day !== today) {
+    state.day = today;
+    state.dailyEarnings = 0;
+  }
   state.performance = state.performance || [state.balance];
   state.trades.forEach(function (trade) {
     trade.market = trade.market || "forex";
@@ -42,11 +52,35 @@
   var closeButton = document.getElementById("close-trade");
   var unitsInput = document.getElementById("trade-units");
   var portfolioPanel = document.getElementById("portfolio-panel");
+  var leaderboardPanel = document.getElementById("leaderboard-panel");
+  var signupPanel = document.getElementById("signup-panel");
+  var settingsPanel = document.getElementById("settings-panel");
+  var leaderboardList = document.getElementById("leaderboard-list");
+  var leaderboardEmpty = document.getElementById("leaderboard-empty");
   var terminal = document.querySelector(".trading-terminal");
+  var loginToggle = document.getElementById("login-toggle");
+  var loginForm = document.getElementById("login-form");
 
   function money(value) { return "$" + value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
   function market() { return markets[activeMarket].pairs[currentPair]; }
-  function save() { localStorage.setItem(storageKey, JSON.stringify(state)); }
+  function save() {
+    if (!username) return;
+    accounts[username] = state;
+    localStorage.setItem("kyles-paper-accounts", JSON.stringify(accounts));
+  }
+  function renderLeaderboard() {
+    var today = new Date().toISOString().slice(0, 10);
+    Object.keys(accounts).forEach(function (accountName) {
+      if (accounts[accountName].day !== today) { accounts[accountName].day = today; accounts[accountName].dailyEarnings = 0; }
+    });
+    var entries = Object.keys(accounts).map(function (accountName) { return { name: accountName, data: accounts[accountName] }; }).sort(function (a, b) { return b.data.dailyEarnings - a.data.dailyEarnings; });
+    leaderboardEmpty.hidden = entries.length > 0;
+    leaderboardList.innerHTML = entries.map(function (entry, index) {
+      var result = entry.data.dailyEarnings || 0;
+      var avatar = entry.data.profilePic ? "<img class=\"profile-avatar\" src=\"" + entry.data.profilePic + "\" alt=\"\" />" : "<i class=\"profile-avatar avatar-circle\">" + entry.name.charAt(0).toUpperCase() + "</i>";
+      return "<div class=\"leaderboard-row\"><strong>" + (index + 1) + "</strong><span>" + avatar + entry.name + "</span><em class=\"" + (result < 0 ? "negative" : "") + "\">" + (result >= 0 ? "+" : "") + money(result) + "</em><span>" + money(entry.data.balance) + "</span></div>";
+    }).join("");
+  }
   function openProfitLoss() {
     return state.trades.reduce(function (total, trade) {
       var livePrice = trade.market === activeMarket && trade.pairKey === currentPair ? currentPrice : markets[trade.market].pairs[trade.pairKey].price;
@@ -92,9 +126,17 @@
   function selectMarket(name) {
     activeMarket = name;
     var isPortfolio = name === "portfolio";
-    terminal.classList.toggle("is-hidden", isPortfolio);
+    var isLeaderboard = name === "leaderboard";
+    var isSignup = name === "signup";
+    var isSettings = name === "settings";
+    terminal.classList.toggle("is-hidden", isPortfolio || isLeaderboard || isSignup || isSettings || !username);
     portfolioPanel.hidden = !isPortfolio;
-    if (!isPortfolio) {
+    leaderboardPanel.hidden = !isLeaderboard;
+    signupPanel.hidden = !isSignup;
+    settingsPanel.hidden = !isSettings;
+    if (isLeaderboard) renderLeaderboard();
+    if (isSettings) document.getElementById("signed-in-as").textContent = username ? "Signed in as " + username : "No account is signed in.";
+    if (!isPortfolio && !isLeaderboard && !isSignup && !isSettings) {
       currentPair = Object.keys(markets[name].pairs)[0];
       currentPrice = market().price;
       title.textContent = market().title;
@@ -105,6 +147,73 @@
     updatePortfolio();
   }
   document.querySelectorAll(".terminal-tab").forEach(function (tab) { tab.addEventListener("click", function () { selectMarket(tab.dataset.market); }); });
+  document.getElementById("signup-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    username = document.getElementById("signup-username").value.trim();
+    var password = document.getElementById("signup-password").value;
+    if (accounts[username]) { document.getElementById("signup-message").textContent = "That username is already taken."; return; }
+    var file = document.getElementById("profile-file").files[0];
+    var finishSignup = function (profilePic) {
+      state = { balance: 100000, weeklyEarnings: 0, wins: 0, losses: 0, trades: [], performance: [100000], day: new Date().toISOString().slice(0, 10), dailyEarnings: 0, profilePic: profilePic, password: password };
+      accounts[username] = state;
+      localStorage.setItem("kyles-active-user", username);
+      save();
+      selectMarket("forex");
+    };
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        document.getElementById("signup-message").textContent = "Choose an image smaller than 2 MB.";
+        return;
+      }
+      var reader = new FileReader();
+      reader.addEventListener("load", function () { finishSignup(reader.result); });
+      reader.readAsDataURL(file);
+    } else {
+      finishSignup("");
+    }
+  });
+  loginToggle.addEventListener("click", function () { loginForm.hidden = !loginForm.hidden; });
+  loginForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var loginName = document.getElementById("login-username").value.trim();
+    var account = accounts[loginName];
+    if (!account || account.password !== document.getElementById("login-password").value) {
+      document.getElementById("login-message").textContent = "Username or password is incorrect.";
+      return;
+    }
+    username = loginName; state = account;
+    var loginToday = new Date().toISOString().slice(0, 10);
+    if (state.day !== loginToday) { state.day = loginToday; state.dailyEarnings = 0; save(); }
+    localStorage.setItem("kyles-active-user", username);
+    selectMarket("forex");
+  });
+  document.getElementById("settings-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    if (!username) { document.getElementById("settings-message").textContent = "Log in before changing settings."; return; }
+    var newName = document.getElementById("new-username").value.trim();
+    var file = document.getElementById("settings-profile-file").files[0];
+    var lastChange = state.usernameChangedAt ? new Date(state.usernameChangedAt).getTime() : 0;
+    if (newName && newName !== username && Date.now() - lastChange < 15 * 24 * 60 * 60 * 1000) {
+      document.getElementById("settings-message").textContent = "Username changes unlock after 15 days.";
+      return;
+    }
+    if (newName && newName !== username && accounts[newName]) { document.getElementById("settings-message").textContent = "That username is already taken."; return; }
+    var applyChanges = function (profilePic) {
+      if (profilePic) state.profilePic = profilePic;
+      if (newName && newName !== username) { delete accounts[username]; state.usernameChangedAt = new Date().toISOString(); username = newName; }
+      accounts[username] = state; localStorage.setItem("kyles-active-user", username); save();
+      document.getElementById("settings-message").textContent = "Settings saved.";
+      document.getElementById("signed-in-as").textContent = "Signed in as " + username;
+    };
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) { document.getElementById("settings-message").textContent = "Choose an image smaller than 2 MB."; return; }
+      var reader = new FileReader(); reader.addEventListener("load", function () { applyChanges(reader.result); }); reader.readAsDataURL(file);
+    } else applyChanges("");
+  });
+  document.getElementById("logout-button").addEventListener("click", function () {
+    localStorage.removeItem("kyles-active-user"); username = null;
+    selectMarket("signup");
+  });
   pairSelector.addEventListener("change", function () { currentPair = pairSelector.value; currentPrice = market().price; title.textContent = market().title; updateChart(); });
   document.querySelectorAll(".order-button[data-side]").forEach(function (button) {
     button.addEventListener("click", function () {
@@ -121,7 +230,7 @@
     var direction = trade.side === "buy" ? 1 : -1;
     var closingPrice = trade.market === activeMarket && trade.pairKey === currentPair ? currentPrice : markets[trade.market].pairs[trade.pairKey].price;
     var result = (closingPrice - trade.entry) * trade.units * direction;
-    state.balance += result; state.weeklyEarnings += result;
+    state.balance += result; state.weeklyEarnings += result; state.dailyEarnings += result;
     if (result >= 0) state.wins++; else state.losses++;
     positionLine.textContent = (result >= 0 ? "Winning" : "Bad") + " trade closed: " + (result >= 0 ? "+" : "") + money(result) + ".";
     save(); updatePortfolio();
@@ -136,4 +245,5 @@
     updatePortfolio();
   }, 1800);
   updatePortfolio();
+  selectMarket(username ? "forex" : "signup");
 }());

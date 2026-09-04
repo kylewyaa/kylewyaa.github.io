@@ -53,6 +53,8 @@
           <button class="terminal-tab is-active" type="button" data-market="forex">Forex</button>
           <button class="terminal-tab" type="button" data-market="crypto">Crypto</button>
           <button class="terminal-tab" type="button" data-market="portfolio">Portfolio</button>
+          <button class="terminal-tab" type="button" data-market="leaderboard">Leaderboard</button>
+          <button class="terminal-tab" type="button" data-market="settings">Settings</button>
         </div>
         <section class="trading-terminal" aria-labelledby="terminal-title">
         <div class="terminal-header">
@@ -92,6 +94,53 @@
           <p id="active-trades-empty">No active trades. Open a position from the market tab.</p>
           <ul id="active-trades-list"></ul>
         </div>
+        </section>
+
+        <section class="leaderboard-panel" id="leaderboard-panel" hidden>
+          <p class="trading-kicker">Paper trading / Today</p>
+          <h1>Leaderboard</h1>
+          <div class="leaderboard-row leaderboard-heading"><span>#</span><span>Trader</span><span>Daily P/L</span><span>Balance</span></div>
+          <div id="leaderboard-list"></div>
+          <p id="leaderboard-empty">No trades closed today. Be the first on the board.</p>
+        </section>
+
+        <section class="signup-panel" id="signup-panel" hidden>
+          <p class="trading-kicker">Paper trading / New account</p>
+          <h1>Start trading</h1>
+          <form class="account-form" id="signup-form">
+            <label>Username <input id="signup-username" required minlength="3" maxlength="18" autocomplete="username" /></label>
+            <label>Password <input id="signup-password" required minlength="4" type="password" autocomplete="new-password" /></label>
+            <label class="profile-upload">Profile picture
+              <input id="profile-file" type="file" accept="image/png,image/jpeg,image/gif,image/webp" />
+            </label>
+            <button type="submit">Create paper account</button>
+            <p class="form-message" id="signup-message" aria-live="polite"></p>
+            <small>No email required. Account data stays in this browser.</small>
+          </form>
+          <button class="login-toggle" id="login-toggle" type="button">Log in to another account</button>
+          <form class="account-form login-form" id="login-form" hidden>
+            <p class="trading-kicker">Existing account</p>
+            <label>Username <input id="login-username" required autocomplete="username" /></label>
+            <label>Password <input id="login-password" required type="password" autocomplete="current-password" /></label>
+            <button type="submit">Log in</button>
+            <p class="form-message" id="login-message" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="settings-panel" id="settings-panel" hidden>
+          <p class="trading-kicker">Account controls</p>
+          <h1>Settings</h1>
+          <p class="signed-in-as" id="signed-in-as"></p>
+          <form class="account-form" id="settings-form">
+            <label>New username <input id="new-username" maxlength="18" minlength="3" /></label>
+            <label class="profile-upload">New profile picture
+              <input id="settings-profile-file" type="file" accept="image/png,image/jpeg,image/gif,image/webp" />
+            </label>
+            <button type="submit">Save changes</button>
+            <p class="form-message" id="settings-message" aria-live="polite"></p>
+          </form>
+          <button class="logout-button" id="logout-button" type="button">Log out</button>
+          <p class="settings-note">Username changes are available once every 15 days.</p>
         </section>
       </div>
     </main>

@@ -19,6 +19,8 @@
 #performance-path { fill: none; stroke: #fff; stroke-width: 2; vector-effect: non-scaling-stroke; }
 .trading-terminal { padding: 20px; border: 1px solid #444; background: #111; box-shadow: 10px 10px 0 #000; }
 .trading-terminal.is-hidden { display: none; }
+.pair-picker { display: grid; gap: 6px; color: #999; font: .65rem "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.pair-picker select { min-height: 34px; padding: 0 8px; border: 1px solid #555; background: #111; color: #fff; font: .72rem "DM Mono", monospace; }
 .trading-workspace { grid-column: 2; min-width: 0; }
 .terminal-tabs { display: flex; gap: 20px; border-bottom: 1px solid #444; }
 .terminal-tab { padding: 0 0 10px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #777; font: 700 .7rem "DM Mono", monospace; text-transform: uppercase; cursor: pointer; }
@@ -36,7 +38,35 @@
 .order-button:hover:not(:disabled), .order-button:focus-visible:not(:disabled) { background: #fff; color: #111; }
 .order-button:disabled { border-color: #444; color: #555; cursor: not-allowed; }
 .position-line { min-height: 1.4em; margin: 14px 0 0; color: #999; font: .7rem "DM Mono", monospace; }
+.account-main, .leaderboard-main { display: grid; grid-template-columns: minmax(220px, .8fr) minmax(420px, 1.5fr); align-items: start; min-height: 0; gap: clamp(32px, 7vw, 100px); }
+.account-copy h2, .leaderboard-main h2 { margin: 14px 0 22px; color: #fff; font-size: clamp(3.7rem, 8vw, 7.5rem); line-height: .86; letter-spacing: -.06em; }
+.account-copy h2 span, .leaderboard-main h2 span { color: #888; }
+.account-form { display: grid; gap: 18px; padding: 24px; border: 1px solid #444; background: #111; box-shadow: 10px 10px 0 #000; }
+.account-form label { display: grid; gap: 7px; color: #aaa; font: .68rem "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.account-form input { min-height: 42px; padding: 0 10px; border: 1px solid #777; border-radius: 0; background: #08090a; color: #fff; font: 1rem "Space Grotesk", sans-serif; }
+.account-form button { min-height: 44px; border: 1px solid #fff; border-radius: 0; background: #fff; color: #111; font: 700 .72rem "Space Grotesk", sans-serif; text-transform: uppercase; cursor: pointer; }
+.account-form button:hover { background: #bbb; }
+.account-form small, .form-message { margin: 0; color: #999; font: .68rem/1.4 "DM Mono", monospace; }
+.form-message { color: #fff; }
+.leaderboard-table { padding: 20px; border: 1px solid #444; background: #111; box-shadow: 10px 10px 0 #000; }
+.leaderboard-row { display: grid; grid-template-columns: 42px 1fr auto auto; gap: 16px; align-items: center; min-height: 54px; border-bottom: 1px solid #333; color: #ccc; font: .75rem "DM Mono", monospace; }
+.leaderboard-heading { min-height: 36px; border-bottom-color: #777; color: #888; font-size: .65rem; text-transform: uppercase; }
+.leaderboard-row em { color: #fff; font-style: normal; }
+.leaderboard-row em.negative { color: #aaa; }
+#leaderboard-empty { color: #999; font: .72rem "DM Mono", monospace; }
 .portfolio-panel { min-height: 450px; padding: 20px; border: 1px solid #444; background: #111; box-shadow: 10px 10px 0 #000; }
+.leaderboard-panel, .signup-panel { min-height: 450px; padding: 20px; border: 1px solid #444; background: #111; box-shadow: 10px 10px 0 #000; }
+.leaderboard-panel h1, .signup-panel h1 { margin: 8px 0 24px; font-size: clamp(2rem, 5vw, 4rem); letter-spacing: -.05em; }
+.profile-upload input { width: 100%; padding: 10px 0; color: #aaa; font: .7rem "DM Mono", monospace; }
+.profile-avatar { display: inline-grid; width: 34px; height: 34px; place-items: center; margin-right: 8px; border-radius: 50%; background: #fff; color: #111; font: 700 .8rem "Space Grotesk", sans-serif; vertical-align: middle; object-fit: cover; }
+.avatar-circle { border-radius: 50%; }
+.avatar-square { border-radius: 0; }
+.avatar-diamond { transform: rotate(45deg); }
+.leaderboard-panel .leaderboard-row { display: grid; grid-template-columns: 42px 1fr auto auto; gap: 16px; align-items: center; min-height: 54px; border-bottom: 1px solid #333; color: #ccc; font: .75rem "DM Mono", monospace; }
+.leaderboard-panel .leaderboard-heading { min-height: 36px; border-bottom-color: #777; color: #888; font-size: .65rem; text-transform: uppercase; }
+.leaderboard-panel .leaderboard-row em { color: #fff; font-style: normal; }
+.leaderboard-panel .leaderboard-row em.negative { color: #aaa; }
+.leaderboard-panel #leaderboard-empty { color: #999; font: .72rem "DM Mono", monospace; }
 .portfolio-panel h1 { margin: 8px 0 24px; font-size: clamp(2rem, 5vw, 4rem); letter-spacing: -.05em; }
 .portfolio-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-bottom: 30px; background: #444; }
 .portfolio-stats div { display: grid; gap: 10px; padding: 16px; background: #111; }
@@ -51,5 +81,12 @@
 #active-trades-list li { display: grid; grid-template-columns: 1fr auto auto; gap: 16px; min-height: 42px; padding: 12px 0; border-top: 1px solid #333; color: #ccc; font: .72rem "DM Mono", monospace; }
 #active-trades-list span { color: #888; }
 #active-trades-list em { color: #fff; font-style: normal; }
-@media (max-width: 780px) { .trading-main { grid-template-columns: 1fr; } .trading-workspace { grid-column: 1; } .account-summary { margin-top: 28px; } }
-@media (max-width: 520px) { .trading-terminal { padding: 14px; } .terminal-chart { height: 260px; } .order-bar { flex-wrap: wrap; } .order-bar label { width: 100%; margin-right: 0; } .account-summary { grid-template-columns: 1fr; gap: 18px; } }
+@media (max-width: 780px) { .trading-main, .account-main, .leaderboard-main { grid-template-columns: 1fr; } .trading-workspace { grid-column: 1; } .account-summary { margin-top: 28px; } }
+@media (max-width: 520px) { .trading-terminal { padding: 14px; } .terminal-chart { height: 260px; } .order-bar { flex-wrap: wrap; } .order-bar label { width: 100%; margin-right: 0; } .account-summary { grid-template-columns: 1fr; gap: 18px; } .leaderboard-table { padding: 14px; } .leaderboard-row { grid-template-columns: 28px 1fr auto; gap: 8px; } .leaderboard-row span:last-child { display: none; } }
+.settings-panel { min-height: 450px; padding: 20px; border: 1px solid #444; background: #111; box-shadow: 10px 10px 0 #000; }
+.settings-panel h1 { margin: 8px 0 12px; font-size: clamp(2rem, 5vw, 4rem); letter-spacing: -.05em; }
+.settings-panel .account-form, .login-form { max-width: 520px; margin-top: 18px; }
+.signed-in-as, .settings-note { color: #999; font: .72rem "DM Mono", monospace; }
+.login-toggle, .logout-button { margin-top: 18px; padding: 10px 0; border: 0; background: transparent; color: #aaa; font: .7rem "DM Mono", monospace; text-decoration: underline; cursor: pointer; }
+.login-toggle:hover, .logout-button:hover { color: #fff; }
+.logout-button { display: block; color: #fff; }
