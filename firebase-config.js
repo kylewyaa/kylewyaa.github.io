@@ -24,6 +24,7 @@ window.firebaseCloud = {
       username: username,
       balance: account.balance,
       dailyEarnings: account.dailyEarnings || 0,
+      profilePic: account.profilePic || "",
       updatedAt: Date.now()
     });
   },

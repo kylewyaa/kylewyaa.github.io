@@ -52,7 +52,8 @@
         document.getElementById("leaderboard-empty").hidden = list.length > 0;
         container.innerHTML = list.map(function (entry, index) {
           var result = entry.data.dailyEarnings || 0;
-          return "<div class=\"leaderboard-row\"><strong>" + (index + 1) + "</strong><span>" + entry.username + "</span><em class=\"" + (result < 0 ? "negative" : "") + "\">" + (result >= 0 ? "+" : "") + result.toLocaleString("en-US", { style: "currency", currency: "USD" }) + "</em><span>" + entry.data.balance.toLocaleString("en-US", { style: "currency", currency: "USD" }) + "</span></div>";
+          var avatar = entry.data.profilePic ? "<img class=\"profile-avatar\" src=\"" + entry.data.profilePic + "\" alt=\"\" />" : "<i class=\"profile-avatar avatar-circle\">" + entry.username.charAt(0).toUpperCase() + "</i>";
+          return "<div class=\"leaderboard-row\"><strong>" + (index + 1) + "</strong><span>" + avatar + entry.username + "</span><em class=\"" + (result < 0 ? "negative" : "") + "\">" + (result >= 0 ? "+" : "") + result.toLocaleString("en-US", { style: "currency", currency: "USD" }) + "</em><span>" + entry.data.balance.toLocaleString("en-US", { style: "currency", currency: "USD" }) + "</span></div>";
         }).join("");
       }
       render();
