@@ -87,7 +87,9 @@
     accounts[username] = state;
     localStorage.setItem("kyles-paper-accounts", JSON.stringify(accounts));
     if (window.firebaseCloud) {
-      window.firebaseCloud.publish(username, state).catch(function (error) { console.warn("Cloud leaderboard unavailable", error); });
+      window.firebaseCloud.saveAccount(username, state).then(function () {
+        return window.firebaseCloud.publish(username, state);
+      }).catch(function (error) { console.warn("Cloud account sync unavailable", error); });
     }
     renderLeaderboard();
   }
@@ -206,7 +208,24 @@
         });
         renderLeaderboard();
       });
-      if (username) window.firebaseCloud.publish(username, state).catch(function (error) { console.warn("Cloud leaderboard unavailable", error); });
+      if (username && state.password) {
+        window.firebaseCloud.login(username, state.password).then(function (cloudState) {
+          if (cloudState) {
+            state = cloudState;
+            accounts[username] = state;
+            localStorage.setItem("kyles-paper-accounts", JSON.stringify(accounts));
+            updatePortfolio();
+          } else {
+            return window.firebaseCloud.saveAccount(username, state);
+          }
+        }).catch(function (error) {
+          if (error.code === "auth/user-not-found" || error.code === "auth/invalid-credential") {
+            window.firebaseCloud.register(username, state.password, state).catch(function (registerError) { console.warn("Firebase account migration unavailable", registerError); });
+          } else {
+            console.warn("Firebase sign-in unavailable", error);
+          }
+        });
+      }
     }).catch(function (error) { console.warn("Firebase sign-in unavailable", error); });
   }
   document.getElementById("signup-form").addEventListener("submit", function (event) {
@@ -219,8 +238,17 @@
       state = { balance: 100000, weeklyEarnings: 0, wins: 0, losses: 0, trades: [], performance: [100000], day: new Date().toISOString().slice(0, 10), dailyEarnings: 0, profilePic: profilePic, password: password };
       accounts[username] = state;
       localStorage.setItem("kyles-active-user", username);
-      save();
-      selectMarket("forex");
+      window.firebaseCloud.ready.then(function () {
+        return window.firebaseCloud.register(username, password, state);
+      }).then(function () {
+        save();
+        selectMarket("forex");
+      }).catch(function (error) {
+        delete accounts[username];
+        localStorage.removeItem("kyles-active-user");
+        document.getElementById("signup-message").textContent = error.code === "auth/email-already-in-use" ? "That username is already taken." : "Account creation failed. Check your connection and try again.";
+        username = null;
+      });
     };
     if (file) {
       if (file.size > 2 * 1024 * 1024) {
@@ -238,16 +266,35 @@
   loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
     var loginName = document.getElementById("login-username").value.trim();
+    var loginPassword = document.getElementById("login-password").value;
     var account = accounts[loginName];
-    if (!account || account.password !== document.getElementById("login-password").value) {
-      document.getElementById("login-message").textContent = "Username or password is incorrect.";
-      return;
-    }
-    username = loginName; state = account;
-    var loginToday = new Date().toISOString().slice(0, 10);
-    if (state.day !== loginToday) { state.day = loginToday; state.dailyEarnings = 0; save(); }
-    localStorage.setItem("kyles-active-user", username);
-    selectMarket("forex");
+    var finishLogin = function (cloudAccount) {
+      username = loginName;
+      state = cloudAccount || account;
+      if (!state) {
+        document.getElementById("login-message").textContent = "Username or password is incorrect.";
+        return;
+      }
+      state.password = loginPassword;
+      var loginToday = new Date().toISOString().slice(0, 10);
+      if (state.day !== loginToday) { state.day = loginToday; state.dailyEarnings = 0; }
+      accounts[username] = state;
+      localStorage.setItem("kyles-paper-accounts", JSON.stringify(accounts));
+      localStorage.setItem("kyles-active-user", username);
+      save();
+      selectMarket("forex");
+    };
+    window.firebaseCloud.ready.then(function () {
+      return window.firebaseCloud.login(loginName, loginPassword);
+    }).then(finishLogin).catch(function () {
+      if (account && account.password === loginPassword) {
+        window.firebaseCloud.register(loginName, loginPassword, account).then(function () { finishLogin(account); }).catch(function () {
+          document.getElementById("login-message").textContent = "Username or password is incorrect.";
+        });
+      } else {
+        document.getElementById("login-message").textContent = "Username or password is incorrect.";
+      }
+    });
   });
   document.getElementById("settings-form").addEventListener("submit", function (event) {
     event.preventDefault();

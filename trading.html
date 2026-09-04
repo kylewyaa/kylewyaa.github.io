@@ -109,13 +109,13 @@
           <h1>Start trading</h1>
           <form class="account-form" id="signup-form">
             <label>Username <input id="signup-username" required minlength="3" maxlength="18" autocomplete="username" /></label>
-            <label>Password <input id="signup-password" required minlength="4" type="password" autocomplete="new-password" /></label>
+            <label>Password <input id="signup-password" required minlength="6" type="password" autocomplete="new-password" /></label>
             <label class="profile-upload">Profile picture
               <input id="profile-file" type="file" accept="image/png,image/jpeg,image/gif,image/webp" />
             </label>
             <button type="submit">Create paper account</button>
             <p class="form-message" id="signup-message" aria-live="polite"></p>
-            <small>No email required. Account data stays in this browser.</small>
+            <small>No email required. Your account syncs across devices.</small>
           </form>
           <button class="login-toggle" id="login-toggle" type="button">Log in to another account</button>
           <form class="account-form login-form" id="login-form" hidden>
