@@ -35,6 +35,24 @@
       SOLUSD: { title: "SOL / USD", symbol: "COINBASE%3ASOLUSD", price: 142, decimals: 2 }
     } }
   };
+  var botNames = ["malone", "kimchi", "orangie"];
+  var savedBotNames = JSON.parse(localStorage.getItem("kyles-paper-bot-names") || "[]");
+  var botFirstNames = ["velvet", "pixel", "rocket", "solar", "neon", "orbit", "lucky", "silver", "midnight", "turbo", "cosmic", "mango", "echo", "nova", "flash", "frost", "juno", "mystic", "rapid", "blue"];
+  var botSecondNames = ["fox", "wave", "trader", "byte", "chief", "spark", "drift", "bull", "bear", "mint", "chart", "star", "wolf", "cloud", "candle"];
+  savedBotNames.forEach(function (savedBotName) {
+    if (botNames.indexOf(savedBotName) === -1) botNames.push(savedBotName);
+  });
+  while (botNames.length < 100) {
+    var generatedName = botFirstNames[Math.floor(Math.random() * botFirstNames.length)] + botSecondNames[Math.floor(Math.random() * botSecondNames.length)] + Math.floor(Math.random() * 99 + 1);
+    if (botNames.indexOf(generatedName) === -1) botNames.push(generatedName);
+  }
+  localStorage.setItem("kyles-paper-bot-names", JSON.stringify(botNames));
+  var botProfiles = { malone: "circle", kimchi: "square", orangie: "diamond" };
+  botNames.forEach(function (botName) {
+    if (!accounts[botName]) {
+      accounts[botName] = { balance: 100000000, weeklyEarnings: 0, wins: 0, losses: 0, trades: [], performance: [100000000], day: today, dailyEarnings: 0, profile: botProfiles[botName], isBot: true, lastTrade: "" };
+    }
+  });
   var balanceElement = document.getElementById("account-balance");
   var performanceChange = document.getElementById("performance-change");
   var performancePath = document.getElementById("performance-path");
@@ -79,7 +97,8 @@
     leaderboardList.innerHTML = entries.map(function (entry, index) {
       var result = entry.data.dailyEarnings || 0;
       var avatar = entry.data.profilePic ? "<img class=\"profile-avatar\" src=\"" + entry.data.profilePic + "\" alt=\"\" />" : "<i class=\"profile-avatar avatar-circle\">" + entry.name.charAt(0).toUpperCase() + "</i>";
-      return "<div class=\"leaderboard-row\"><strong>" + (index + 1) + "</strong><span>" + avatar + entry.name + "</span><em class=\"" + (result < 0 ? "negative" : "") + "\">" + (result >= 0 ? "+" : "") + money(result) + "</em><span>" + money(entry.data.balance) + "</span></div>";
+      var botLabel = entry.data.isBot ? " <small>BOT / " + entry.data.lastTrade + " TRADE</small>" : "";
+      return "<div class=\"leaderboard-row\"><strong>" + (index + 1) + "</strong><span>" + avatar + entry.name + botLabel + "</span><em class=\"" + (result < 0 ? "negative" : "") + "\">" + (result >= 0 ? "+" : "") + money(result) + "</em><span>" + money(entry.data.balance) + "</span></div>";
     }).join("");
   }
   function openProfitLoss() {
@@ -120,6 +139,21 @@
     }).join("");
     closeButton.disabled = state.trades.length === 0;
     updatePerformance();
+  }
+  function runBotTrading() {
+    botNames.forEach(function (botName) {
+      if (Math.random() > 0.28) return;
+      var bot = accounts[botName];
+      var result = (Math.random() - 0.46) * 1200000;
+      var tradeSize = Math.random() < 0.025 ? 40000000 : Math.floor(100000 + Math.random() * 9000000);
+      bot.dailyEarnings += result;
+      bot.weeklyEarnings += result;
+      bot.balance += result;
+      bot.lastTrade = money(tradeSize);
+      if (result >= 0) bot.wins++; else bot.losses++;
+    });
+    localStorage.setItem("kyles-paper-accounts", JSON.stringify(accounts));
+    renderLeaderboard();
   }
   function updateChart() {
     chart.src = "https://www.tradingview.com/widgetembed/?symbol=" + market().symbol + "&interval=15&hidesidetoolbar=1&symboledit=1&saveimage=0&toolbar_bg=%23080808&studies=%5B%5D&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&hide_top_toolbar=1&hide_legend=0&hide_volume=1&allow_symbol_change=0&calendar=0";
@@ -251,6 +285,7 @@
     quote.textContent = currentPrice.toFixed(market().decimals);
     updatePortfolio();
   }, 1800);
+  setInterval(runBotTrading, 8000);
   updatePortfolio();
   selectMarket(username ? "forex" : "signup");
 }());

@@ -67,6 +67,7 @@
 .leaderboard-panel .leaderboard-row em { color: #fff; font-style: normal; }
 .leaderboard-panel .leaderboard-row em.negative { color: #aaa; }
 .leaderboard-panel #leaderboard-empty { color: #999; font: .72rem "DM Mono", monospace; }
+.leaderboard-panel .leaderboard-row small { color: #777; font-size: .58rem; }
 .portfolio-panel h1 { margin: 8px 0 24px; font-size: clamp(2rem, 5vw, 4rem); letter-spacing: -.05em; }
 .portfolio-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-bottom: 30px; background: #444; }
 .portfolio-stats div { display: grid; gap: 10px; padding: 16px; background: #111; }
