@@ -67,6 +67,7 @@
     if (!username) return;
     accounts[username] = state;
     localStorage.setItem("kyles-paper-accounts", JSON.stringify(accounts));
+    renderLeaderboard();
   }
   function renderLeaderboard() {
     var today = new Date().toISOString().slice(0, 10);
@@ -147,6 +148,12 @@
     updatePortfolio();
   }
   document.querySelectorAll(".terminal-tab").forEach(function (tab) { tab.addEventListener("click", function () { selectMarket(tab.dataset.market); }); });
+  window.addEventListener("storage", function (event) {
+    if (event.key === "kyles-paper-accounts") {
+      accounts = JSON.parse(event.newValue || "{}");
+      renderLeaderboard();
+    }
+  });
   document.getElementById("signup-form").addEventListener("submit", function (event) {
     event.preventDefault();
     username = document.getElementById("signup-username").value.trim();
