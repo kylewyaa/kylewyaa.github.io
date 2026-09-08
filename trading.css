@@ -100,3 +100,37 @@
   /* If you want it more towards the bottom, you might need to adjust padding/margins
      of its parent or the popup-content itself. For now, let's focus on the text size. */
 }
+
+.options-bar input[type="checkbox"] {
+  margin-right: 8px;
+  cursor: pointer;
+  /* You might want to adjust the size of the checkbox itself if needed */
+  transform: scale(0.9); /* Example: slightly smaller checkbox */
+}
+
+.options-bar label {
+  cursor: pointer;
+  font-size: 0.9em; /* Ensure label text size matches or is slightly larger */
+}
+
+/* If the text is still too big, you can reduce the font-size further */
+/* For example: */
+/*
+.options-bar {
+  font-size: 0.8em;
+}
+*/
+
+/* To ensure it's visually at the bottom, we can add some bottom padding to the popup content */
+.popup-content {
+  background-color: #fefefe; /* White background */
+  margin: 15% auto; /* Centered */
+  padding: 20px;
+  border: 1px solid #888; /* Grey border */
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-width: 500px; /* Max width for larger screens */
+  position: relative;
+  color: #333; /* Dark grey text for contrast */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /* Subtle shadow */
+  border-radius: 8px; /* Slightly rounded corners */
+  padding-bottom: 30px; /* Add more space at the bottom */
