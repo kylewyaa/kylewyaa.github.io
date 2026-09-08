@@ -310,4 +310,40 @@
   updatePortfolio();
   selectMarket(username ? "forex" : "signup");
   connectCloudLeaderboard();
+  document.addEventListener('DOMContentLoaded', function() {
+  const popup = document.getElementById('signupPopup');
+  const closeButton = document.querySelector('.close-button');
+  const playNowButton = document.querySelector('.play-now-button');
+
+  // Function to show the popup
+  function showPopup() {
+    popup.style.display = 'block';
+  }
+
+  // Function to hide the popup
+  function hidePopup() {
+    popup.style.display = 'none';
+  }
+
+  // Show the popup when the page loads (or after a delay, or on a specific event)
+  // For demonstration, we'll show it immediately. You might want to add a delay.
+  setTimeout(showPopup, 1000); // Show after 1 second
+
+  // Close the popup when the close button is clicked
+  closeButton.onclick = hidePopup;
+
+  // Close the popup when the play now button is clicked
+  playNowButton.onclick = function() {
+    hidePopup();
+    // You can add navigation or other actions here, e.g.:
+    // window.location.href = 'your-game-page.html';
+  };
+
+  // Close the popup if the user clicks anywhere outside of the popup content
+  window.onclick = function(event) {
+    if (event.target == popup) {
+      hidePopup();
+    }
+  };
+});
 }());
