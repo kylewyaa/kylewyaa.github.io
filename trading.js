@@ -346,4 +346,52 @@
     }
   };
 });
+document.addEventListener('DOMContentLoaded', function() {
+  const popup = document.getElementById('signupPopup');
+  const closeButton = document.querySelector('.close-button');
+  const playNowButton = document.querySelector('.play-now-button');
+  const dontShowAgainCheckbox = document.getElementById('dontShowAgain');
+
+  const POPUP_STORAGE_KEY = 'dontShowSignupPopup';
+
+  // Function to show the popup
+  function showPopup() {
+    popup.style.display = 'block';
+  }
+
+  // Function to hide the popup
+  function hidePopup() {
+    popup.style.display = 'none';
+  }
+
+  // Check if the 'don't show again' option is set
+  function shouldShowPopup() {
+    return localStorage.getItem(POPUP_STORAGE_KEY) !== 'true';
+  }
+
+  // Show the popup if the user hasn't opted out
+  if (shouldShowPopup()) {
+    // You might want to add a delay here as in the original example
+    setTimeout(showPopup, 1000); // Show after 1 second
+  }
+
+  // Close the popup when the close button is clicked
+  closeButton.onclick = hidePopup;
+
+  // Close the popup when the play now button is clicked
+  if (playNowButton) { // Check if the button exists
+    playNowButton.onclick = hidePopup;
+  }
+
+  // Handle the 'Don't show again' checkbox
+  if (dontShowAgainCheckbox) {
+    dontShowAgainCheckbox.onchange = function() {
+      if (this.checked) {
+        localStorage.setItem(POPUP_STORAGE_KEY, 'true');
+      } else {
+        localStorage.removeItem(POPUP_STORAGE_KEY);
+      }
+    };
+  }
+});
 }());
