@@ -394,4 +394,144 @@ document.addEventListener('DOMContentLoaded', function() {
     };
   }
 });
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+admin.initializeApp();
+
+const db = admin.firestore();
+
+// Daily leaderboard reset function
+exports.resetDailyPL = functions.pubsub.schedule("0 0 * * *") // Runs at midnight UTC daily
+    .timeZone("UTC")
+    .onRun(async (context) => {
+        console.log("Starting daily P/L reset...");
+        const usersRef = db.collection("users");
+        const snapshot = await usersRef.get();
+
+        const batch = db.batch();
+        const now = admin.firestore.Timestamp.now();
+
+        snapshot.forEach(doc => {
+            batch.update(doc.ref, {
+                dailyPL: 0,
+                lastDailyReset: now
+            });
+        });
+
+        await batch.commit();
+        console.log("Daily P/L reset complete.");
+        return None;
+    });
+
+// Example of a function to ban a user (can be triggered by an admin action)
+exports.banUser = functions.https.onCall(async (data, context) => {
+    // Add security checks here: ensure context.auth exists and user is an admin
+    const userIdToBan = data.userId;
+    const userRef = db.collection("users").doc(userIdToBan);
+
+    await userRef.update({ isBanned: true });
+    console.log(`User ${userIdToBan} has been banned.`);
+    return { success: true, message: `User ${userIdToBan} banned.` };
+});
+import { db, firebase } from './firebaseConfig'; // Assuming you have a firebaseConfig.js
+
+const USERS_COLLECTION = 'users';
+const MAX_INVESTMENT = 5000;
+const WEALTH_BAN_THRESHOLD = 100000000; // 100 million
+
+// --- Placeholder for User Management ---
+const currentUser = { uid: 'user123', displayName: 'GamerGuy' };
+
+async function getUserData(userId = currentUser.uid) {
+    const userRef = db.collection(USERS_COLLECTION).doc(userId);
+    const userDoc = await userRef.get();
+    let userData = userDoc.data();
+
+    if (!userData) {
+        // Create new user
+        userData = {
+            displayName: currentUser.displayName,
+            currentInvestment: 0,
+            totalWealth: 10000,
+            isBanned: false,
+            dailyPL: 0,
+            lastDailyReset: firebase.firestore.Timestamp.now()
+        };
+        await userRef.set(userData);
+    } else {
+        // Check and reset daily P/L
+        const now = firebase.firestore.Timestamp.now();
+        const lastReset = userData.lastDailyReset.toDate();
+        const today = new Date();
+
+        if (lastReset.toDateString() !== today.toDateString()) {
+            userData.dailyPL = 0;
+            userData.lastDailyReset = now;
+            await userRef.update({ dailyPL: 0, lastDailyReset: now });
+        }
+    }
+    return userData;
+}
+
+async function makeInvestment(amount) {
+    const userRef = getUserRef();
+    const userData = await getUserData(); // Ensure data is fresh and reset if needed
+
+    if (userData.isBanned) {
+        alert("You are banned from investing.");
+        return false;
+    }
+
+    if (userData.currentInvestment + amount > MAX_INVESTMENT) {
+        alert(`Investment exceeds the ${MAX_INVESTMENT} limit.`);
+        return false;
+    }
+
+    // Update Firestore
+    await userRef.update({
+        currentInvestment: userData.currentInvestment + amount,
+        totalWealth: userData.totalWealth - amount // Assuming investment reduces cash wealth
+    });
+    alert(`Successfully invested ${amount}.`);
+    return true;
+}
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+admin.initializeApp();
+
+const db = admin.firestore();
+
+// Daily leaderboard reset function
+exports.resetDailyPL = functions.pubsub.schedule("0 0 * * *") // Runs at midnight UTC daily
+    .timeZone("UTC")
+    .onRun(async (context) => {
+        console.log("Starting daily P/L reset...");
+        const usersRef = db.collection("users");
+        const snapshot = await usersRef.get();
+
+        const batch = db.batch();
+        const now = admin.firestore.Timestamp.now();
+
+        snapshot.forEach(doc => {
+            batch.update(doc.ref, {
+                dailyPL: 0,
+                lastDailyReset: now
+            });
+        });
+
+        await batch.commit();
+        console.log("Daily P/L reset complete.");
+        return None;
+    });
+
+// Example of a function to ban a user (can be triggered by an admin action)
+exports.banUser = functions.https.onCall(async (data, context) => {
+    // Add security checks here: ensure context.auth exists and user is an admin
+    const userIdToBan = data.userId;
+    const userRef = db.collection("users").doc(userIdToBan);
+
+    await userRef.update({ isBanned: true });
+    console.log(`User ${userIdToBan} has been banned.`);
+    return { success: true, message: `User ${userIdToBan} banned.` };
+});
 }());
