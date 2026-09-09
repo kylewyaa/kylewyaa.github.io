@@ -33,5 +33,4 @@ window.firebaseCloud = {
       callback(snapshot.docs.map(function (entry) { return entry.data(); }));
     });
   }
-  
 };
