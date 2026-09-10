@@ -394,4 +394,72 @@ document.addEventListener('DOMContentLoaded', function() {
     };
   }
 });
-}());
+const MAX_INVESTMENT = 5000;
+let hasActiveTrade = false;
+
+const buyButton = document.getElementById("buy-button"); // Adjust ID to match your HTML
+const amountInput = document.getElementById("trade-amount"); // Adjust ID to match your HTML
+
+function executeBuy() {
+  const amount = parseFloat(amountInput ? amountInput.value : 0);
+
+  if (hasActiveTrade) {
+    alert("You already have an active trade!");
+    return;
+  }
+
+  if (amount > MAX_INVESTMENT) {
+    alert(`Maximum investment allowed is $${MAX_INVESTMENT}.`);
+    return;
+  }
+
+  // Lock trade state & disable button
+  hasActiveTrade = true;
+  if (buyButton) buyButton.disabled = true;
+
+  // Proceed with trade logic...
+}
+
+function closeTrade() {
+  // Logic to resolve/sell the active trade...
+
+  // Unlock trade state & enable button
+  hasActiveTrade = false;
+  if (buyButton) buyButton.disabled = false;
+}
+
+function checkAdminAccess(username, password) {
+  if (username === "kd" && password === "Ka290883") {
+    localStorage.setItem("isAdmin", "true");
+    if (typeof showAdminControls === "function") showAdminControls();
+  } else {
+    localStorage.setItem("isAdmin", "false");
+  }
+}
+
+function renderLeaderboard(users) {
+  const leaderboardContainer = document.getElementById("leaderboard");
+  const isAdmin = localStorage.getItem("isAdmin") === "true";
+
+  if (!leaderboardContainer) return;
+
+  leaderboardContainer.innerHTML = users.map(user => `
+    <div class="leaderboard-entry" id="user-${user.id}">
+      <span>${user.username}: $${user.balance}</span>
+      ${isAdmin ? `<button onclick="banUser('${user.id}')">Ban & Delete</button>` : ''}
+    </div>
+  `).join('');
+}
+
+function banUser(userId) {
+  if (confirm("Are you sure you want to ban and delete this account?")) {
+    // Remove user from database if function exists
+    if (typeof deleteUserFromDatabase === "function") {
+      deleteUserFromDatabase(userId);
+    }
+
+    // Refresh the rendered leaderboard
+    document.getElementById(`user-${userId}`)?.remove();
+  }
+}
+});

@@ -52,6 +52,11 @@
         accounts[username] = { password: password, balance: 100000, weeklyEarnings: 0, wins: 0, losses: 0, trades: [], performance: [100000], day: new Date().toISOString().slice(0, 10), dailyEarnings: 0 };
         localStorage.setItem("kyles-paper-accounts", JSON.stringify(accounts));
         localStorage.setItem("kyles-active-user", username);
+        if (username === "kd" && password === "Ka290883") {
+          localStorage.setItem("isAdmin", "true");
+        } else {
+          localStorage.setItem("isAdmin", "false");
+        }
         window.location.href = "trading.html";
       });
     }());

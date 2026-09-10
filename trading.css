@@ -134,3 +134,27 @@
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /* Subtle shadow */
   border-radius: 8px; /* Slightly rounded corners */
   padding-bottom: 30px; /* Add more space at the bottom */
+  /* Admin Controls & Leaderboard Styling */
+}
+.leaderboard-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+}
+
+.leaderboard-entry button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.leaderboard-entry button:hover {
+  background-color: #cc0000;
+}
