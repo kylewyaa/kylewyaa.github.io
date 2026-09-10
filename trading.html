@@ -95,7 +95,12 @@
           <ul id="active-trades-list"></ul>
         </div>
         </section>
-
+        <!-- Admin Control Panel (Hidden by default) -->
+        <div id="admin-panel" style="display: none; background: #1a1a1a; padding: 15px; border: 1px solid #ff4444; margin-bottom: 20px; border-radius: 8px;">
+        <h3 style="color: #ff4444; margin-top: 0;">Admin Controls</h3>
+       <p>Logged in as <strong>KD (Admin)</strong></p>
+       <button id="admin-reset-leaderboard-btn" style="background: #ff4444; color: #fff; padding: 8px 12px; border: none; cursor: pointer; border-radius: 4px;">Reset All Accounts</button>
+      </div>
         <section class="leaderboard-panel" id="leaderboard-panel" hidden>
           <p class="trading-kicker">Paper trading / Today</p>
           <h1>Leaderboard</h1>
@@ -145,22 +150,6 @@
       </div>
     </main>
   </div>
-  <script type="module" src="firebase-config.js"></script>
   <script src="trading.js"></script>
-  <div id="signupPopup" class="popup-overlay">
-  <div class="popup-content">
-    <span class="close-button">&times;</span>
-    <h2>Trading Signups FIXED!</h2>
-    <p>Play Now!</p>
-    <button class="play-now-button">Play Now</button>
-  </div>
-  <div class="options-bar">
-      <input type="checkbox" id="dontShowAgain">
-      <label for="dontShowAgain">Don't show this again</label>
-    </div>
-  </div>
-</div>
-</div>
 </body>
-
 </html>

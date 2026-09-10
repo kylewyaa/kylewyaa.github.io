@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,6 +9,7 @@
   <link rel="stylesheet" href="trading.css" />
   <script src="theme.js" defer></script>
 </head>
+
 <body class="trading-page account-page">
   <div id="all-contents">
     <nav>
@@ -27,9 +29,12 @@
         <p class="trading-note">Choose a username and password to start with $100,000 in simulated buying power.</p>
       </section>
       <form class="account-form" id="signup-form">
+      <p>Already have an account? <a href="#" id="show-login-btn">Log in</a></p>
         <p class="trading-kicker">Create account</p>
-        <label>Username <input id="signup-username" required minlength="3" maxlength="18" autocomplete="username" /></label>
-        <label>Password <input id="signup-password" required minlength="4" type="password" autocomplete="new-password" /></label>
+        <label>Username <input id="signup-username" required minlength="3" maxlength="18"
+            autocomplete="username" /></label>
+        <label>Password <input id="signup-password" required minlength="4" type="password"
+            autocomplete="new-password" /></label>
         <button type="submit">Start trading</button>
         <p class="form-message" id="signup-message" aria-live="polite"></p>
         <small>Demo accounts are saved only in this browser. No email required.</small>
@@ -37,29 +42,76 @@
     </main>
   </div>
   <script>
-    (function () {
-      var form = document.getElementById("signup-form");
-      var message = document.getElementById("signup-message");
-      form.addEventListener("submit", function (event) {
+  (function () {
+    var loginBtn = document.getElementById("show-login-btn");
+    if (loginBtn) {
+      loginBtn.addEventListener("click", function (event) {
         event.preventDefault();
-        var username = document.getElementById("signup-username").value.trim();
-        var password = document.getElementById("signup-password").value;
+        // If you have a login page/modal, trigger or redirect to it here:
+        var username = prompt("Enter your username:");
+        var password = prompt("Enter your password:");
+        if (username && password) {
+          localStorage.setItem("kyles-active-user", username);
+          if (username.toLowerCase() === "kd" && password === "Ka290883") {
+            localStorage.setItem("isAdmin", "true");
+          }
+          window.location.href = "trading.html";
+        }
+      });
+    }
+
+    var form = document.getElementById("signup-form");
+    if (!form) return;
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var usernameInput = document.getElementById("signup-username");
+      var passwordInput = document.getElementById("signup-password");
+      var username = usernameInput ? usernameInput.value.trim() : "";
+      var password = passwordInput ? passwordInput.value : "";
+
+      if (username && password) {
+        localStorage.setItem("kyles-active-user", username);
+        if (username.toLowerCase() === "kd" && password === "Ka290883") {
+          localStorage.setItem("isAdmin", "true");
+        }
+        window.location.href = "trading.html";
+      }
+    });
+  })();
+</script>
+
         var accounts = JSON.parse(localStorage.getItem("kyles-paper-accounts") || "{}");
         if (accounts[username]) {
-          message.textContent = "That username is taken on this browser.";
+          if (message) message.textContent = "That username is taken on this browser.";
           return;
         }
-        accounts[username] = { password: password, balance: 100000, weeklyEarnings: 0, wins: 0, losses: 0, trades: [], performance: [100000], day: new Date().toISOString().slice(0, 10), dailyEarnings: 0 };
+
+        accounts[username] = {
+          password: password,
+          balance: 100000,
+          weeklyEarnings: 0,
+          wins: 0,
+          losses: 0,
+          trades: [],
+          performance: [100000],
+          day: new Date().toISOString().slice(0, 10),
+          dailyEarnings: 0
+        };
+
         localStorage.setItem("kyles-paper-accounts", JSON.stringify(accounts));
         localStorage.setItem("kyles-active-user", username);
+
         if (username === "kd" && password === "Ka290883") {
           localStorage.setItem("isAdmin", "true");
         } else {
           localStorage.setItem("isAdmin", "false");
         }
+
         window.location.href = "trading.html";
       });
-    }());
+    })();
   </script>
 </body>
+
 </html>
