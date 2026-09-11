@@ -1,160 +1,152 @@
-.trading-page { min-height: 100vh; background: #08090a; color: #fff; }
-.trading-page #all-contents { max-width: 1500px; }
-.trading-page nav { margin-bottom: clamp(48px, 9vw, 100px); }
-.trading-main { display: grid; grid-template-columns: minmax(220px, .8fr) minmax(420px, 1.5fr); align-items: start; min-height: 0; gap: clamp(32px, 7vw, 100px); }
-.trading-hero h2 { margin: 14px 0 22px; color: #fff; font-size: clamp(3.7rem, 8vw, 7.5rem); line-height: .86; letter-spacing: -.06em; }
-.trading-hero h2 span { color: #888; }
-.trading-kicker { margin: 0; color: #999; font: 700 .68rem "DM Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
-.trading-note { max-width: 350px; color: #aaa; font-size: .9rem; line-height: 1.6; }
-.account-balance { display: grid; gap: 8px; margin-top: 46px; padding-top: 14px; border-top: 1px solid #555; }
-.account-balance span { color: #999; font: .68rem "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
-.account-balance strong { font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -.04em; }
-.account-summary { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 1.35fr); gap: 24px; margin-top: 46px; }
-.account-summary .account-balance { margin-top: 0; }
-.performance-card { min-width: 0; padding-top: 14px; border-top: 1px solid #555; }
-.performance-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; color: #999; font: .68rem "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
-.performance-heading strong { color: #fff; font-weight: 400; white-space: nowrap; }
-.performance-heading strong.negative { color: #aaa; }
-#performance-line { display: block; width: 100%; height: 64px; margin-top: 8px; overflow: visible; }
-#performance-path { fill: none; stroke: #fff; stroke-width: 2; vector-effect: non-scaling-stroke; }
-.trading-terminal { padding: 20px; border: 1px solid #444; background: #111; box-shadow: 10px 10px 0 #000; }
-.trading-terminal.is-hidden { display: none; }
-.pair-picker { display: grid; gap: 6px; color: #999; font: .65rem "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
-.pair-picker select { min-height: 34px; padding: 0 8px; border: 1px solid #555; background: #111; color: #fff; font: .72rem "DM Mono", monospace; }
-.trading-workspace { grid-column: 2; min-width: 0; }
-.terminal-tabs { display: flex; gap: 20px; border-bottom: 1px solid #444; }
-.terminal-tab { padding: 0 0 10px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #777; font: 700 .7rem "DM Mono", monospace; text-transform: uppercase; cursor: pointer; }
-.terminal-tab.is-active, .terminal-tab:hover { border-bottom-color: #fff; color: #fff; }
-.terminal-header { display: flex; align-items: end; justify-content: space-between; gap: 20px; min-height: 64px; padding: 20px 0 14px; }
-.terminal-header h1 { margin: 5px 0 0; font-size: clamp(1.4rem, 3vw, 2.3rem); letter-spacing: -.04em; }
-.quote { min-width: 7ch; font: 1.5rem "DM Mono", monospace; font-variant-numeric: tabular-nums; text-align: right; }
-.terminal-chart { height: 340px; border: 1px solid #333; }
-.terminal-chart iframe { width: 100%; height: 100%; border: 0; }
-.order-bar { display: flex; align-items: end; gap: 8px; padding-top: 18px; }
-.order-bar label { display: grid; gap: 6px; margin-right: auto; color: #aaa; font: .68rem "DM Mono", monospace; text-transform: uppercase; }
-.order-bar input, .order-button { min-height: 40px; border: 1px solid #fff; border-radius: 0; background: transparent; color: #fff; font: 700 .72rem "Space Grotesk", sans-serif; }
-.order-bar input { width: 110px; padding: 0 9px; }
-.order-button { padding: 0 14px; cursor: pointer; text-transform: uppercase; }
-.order-button:hover:not(:disabled), .order-button:focus-visible:not(:disabled) { background: #fff; color: #111; }
-.order-button:disabled { border-color: #444; color: #555; cursor: not-allowed; }
-.position-line { min-height: 1.4em; margin: 14px 0 0; color: #999; font: .7rem "DM Mono", monospace; }
-.account-main, .leaderboard-main { display: grid; grid-template-columns: minmax(220px, .8fr) minmax(420px, 1.5fr); align-items: start; min-height: 0; gap: clamp(32px, 7vw, 100px); }
-.account-copy h2, .leaderboard-main h2 { margin: 14px 0 22px; color: #fff; font-size: clamp(3.7rem, 8vw, 7.5rem); line-height: .86; letter-spacing: -.06em; }
-.account-copy h2 span, .leaderboard-main h2 span { color: #888; }
-.account-form { display: grid; gap: 18px; padding: 24px; border: 1px solid #444; background: #111; box-shadow: 10px 10px 0 #000; }
-.account-form label { display: grid; gap: 7px; color: #aaa; font: .68rem "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
-.account-form input { min-height: 42px; padding: 0 10px; border: 1px solid #777; border-radius: 0; background: #08090a; color: #fff; font: 1rem "Space Grotesk", sans-serif; }
-.account-form button { min-height: 44px; border: 1px solid #fff; border-radius: 0; background: #fff; color: #111; font: 700 .72rem "Space Grotesk", sans-serif; text-transform: uppercase; cursor: pointer; }
-.account-form button:hover { background: #bbb; }
-.account-form small, .form-message { margin: 0; color: #999; font: .68rem/1.4 "DM Mono", monospace; }
-.form-message { color: #fff; }
-.leaderboard-table { padding: 20px; border: 1px solid #444; background: #111; box-shadow: 10px 10px 0 #000; }
-.leaderboard-row { display: grid; grid-template-columns: 42px 1fr auto auto; gap: 16px; align-items: center; min-height: 54px; border-bottom: 1px solid #333; color: #ccc; font: .75rem "DM Mono", monospace; }
-.leaderboard-heading { min-height: 36px; border-bottom-color: #777; color: #888; font-size: .65rem; text-transform: uppercase; }
-.leaderboard-row em { color: #fff; font-style: normal; }
-.leaderboard-row em.negative { color: #aaa; }
-#leaderboard-empty { color: #999; font: .72rem "DM Mono", monospace; }
-.portfolio-panel { min-height: 450px; padding: 20px; border: 1px solid #444; background: #111; box-shadow: 10px 10px 0 #000; }
-.leaderboard-panel, .signup-panel { min-height: 450px; padding: 20px; border: 1px solid #444; background: #111; box-shadow: 10px 10px 0 #000; }
-.leaderboard-panel h1, .signup-panel h1 { margin: 8px 0 24px; font-size: clamp(2rem, 5vw, 4rem); letter-spacing: -.05em; }
-.profile-upload input { width: 100%; padding: 10px 0; color: #aaa; font: .7rem "DM Mono", monospace; }
-.profile-avatar { display: inline-grid; width: 34px; height: 34px; place-items: center; margin-right: 8px; border-radius: 50%; background: #fff; color: #111; font: 700 .8rem "Space Grotesk", sans-serif; vertical-align: middle; object-fit: cover; }
-.avatar-circle { border-radius: 50%; }
-.avatar-square { border-radius: 0; }
-.avatar-diamond { transform: rotate(45deg); }
-.leaderboard-panel .leaderboard-row { display: grid; grid-template-columns: 42px 1fr auto auto; gap: 16px; align-items: center; min-height: 54px; border-bottom: 1px solid #333; color: #ccc; font: .75rem "DM Mono", monospace; }
-.leaderboard-panel .leaderboard-heading { min-height: 36px; border-bottom-color: #777; color: #888; font-size: .65rem; text-transform: uppercase; }
-.leaderboard-panel .leaderboard-row em { color: #fff; font-style: normal; }
-.leaderboard-panel .leaderboard-row em.negative { color: #aaa; }
-.leaderboard-panel #leaderboard-empty { color: #999; font: .72rem "DM Mono", monospace; }
-.leaderboard-panel .leaderboard-row small { color: #777; font-size: .58rem; }
-.portfolio-panel h1 { margin: 8px 0 24px; font-size: clamp(2rem, 5vw, 4rem); letter-spacing: -.05em; }
-.portfolio-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-bottom: 30px; background: #444; }
-.portfolio-stats div { display: grid; gap: 10px; padding: 16px; background: #111; }
-.portfolio-stats span, .active-trades-heading span { color: #999; font: .68rem "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
-.portfolio-stats strong { font: 1.35rem "DM Mono", monospace; }
-.portfolio-stats strong.negative { color: #aaa; }
-.active-trades { border-top: 1px solid #444; }
-.active-trades-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
-.active-trades-heading h2 { margin: 18px 0 12px; color: #fff; font-size: 1.2rem; letter-spacing: -.02em; text-shadow: none; }
-.active-trades p { color: #999; font: .72rem "DM Mono", monospace; }
-#active-trades-list { margin: 0; padding: 0; list-style: none; }
-#active-trades-list li { display: grid; grid-template-columns: 1fr auto auto; gap: 16px; min-height: 42px; padding: 12px 0; border-top: 1px solid #333; color: #ccc; font: .72rem "DM Mono", monospace; }
-#active-trades-list span { color: #888; }
-#active-trades-list em { color: #fff; font-style: normal; }
-@media (max-width: 780px) { .trading-main, .account-main, .leaderboard-main { grid-template-columns: 1fr; } .trading-workspace { grid-column: 1; } .account-summary { margin-top: 28px; } }
-@media (max-width: 520px) { .trading-terminal { padding: 14px; } .terminal-chart { height: 260px; } .order-bar { flex-wrap: wrap; } .order-bar label { width: 100%; margin-right: 0; } .account-summary { grid-template-columns: 1fr; gap: 18px; } .leaderboard-table { padding: 14px; } .leaderboard-row { grid-template-columns: 28px 1fr auto; gap: 8px; } .leaderboard-row span:last-child { display: none; } }
-.settings-panel { min-height: 450px; padding: 20px; border: 1px solid #444; background: #111; box-shadow: 10px 10px 0 #000; }
-.settings-panel h1 { margin: 8px 0 12px; font-size: clamp(2rem, 5vw, 4rem); letter-spacing: -.05em; }
-.settings-panel .account-form, .login-form { max-width: 520px; margin-top: 18px; }
-.signed-in-as, .settings-note { color: #999; font: .72rem "DM Mono", monospace; }
-.login-toggle, .logout-button { margin-top: 18px; padding: 10px 0; border: 0; background: transparent; color: #aaa; font: .7rem "DM Mono", monospace; text-decoration: underline; cursor: pointer; }
-.login-toggle:hover, .logout-button:hover { color: #fff; }
-.logout-button { display: block; color: #fff; }
-.options-bar {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  font-size: 0.9em; /* This controls the text size */
-  color: #555;
-  /* If you want it more towards the bottom, you might need to adjust padding/margins
-     of its parent or the popup-content itself. For now, let's focus on the text size. */
-}
-
-.options-bar input[type="checkbox"] {
-  margin-right: 8px;
-  cursor: pointer;
-  /* You might want to adjust the size of the checkbox itself if needed */
-  transform: scale(0.9); /* Example: slightly smaller checkbox */
-}
-
-.options-bar label {
-  cursor: pointer;
-  font-size: 0.9em; /* Ensure label text size matches or is slightly larger */
-}
-
-/* If the text is still too big, you can reduce the font-size further */
-/* For example: */
-/*
-.options-bar {
-  font-size: 0.8em;
-}
-*/
-
-/* To ensure it's visually at the bottom, we can add some bottom padding to the popup content */
-.popup-content {
-  background-color: #fefefe; /* White background */
-  margin: 15% auto; /* Centered */
-  padding: 20px;
-  border: 1px solid #888; /* Grey border */
-  width: 80%; /* Could be more or less, depending on screen size */
-  max-width: 500px; /* Max width for larger screens */
-  position: relative;
-  color: #333; /* Dark grey text for contrast */
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /* Subtle shadow */
-  border-radius: 8px; /* Slightly rounded corners */
-  padding-bottom: 30px; /* Add more space at the bottom */
-  /* Admin Controls & Leaderboard Styling */
-}
-.leaderboard-entry {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 12px;
-  margin-bottom: 6px;
-  background-color: #2a2a2a;
-  border-radius: 4px;
-}
-
-.leaderboard-entry button {
+.shutdown-banner {
   background-color: #ff4d4d;
-  color: white;
+  color: #ffffff;
+  text-align: center;
+  padding: 12px 16px;
+  font-family: sans-serif;
+  font-weight: 500;
+}
+
+.banner-content button {
+  margin-left: 12px;
+  background: #ffffff;
+  color: #ff4d4d;
   border: none;
   padding: 4px 10px;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: bold;
+}
+.shutdown-banner {
+  background-color: #1a1a2e;
+  border: 2px solid #ff4d4d;
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  border-radius: 8px;
 }
 
-.leaderboard-entry button:hover {
-  background-color: #cc0000;
+.banner-content h2 {
+  color: #ff4d4d;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.banner-content p {
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.banner-content button {
+  background: #ff4d4d;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+/* Page Background */
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation Bar (Matches Main Site) */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #0d0e10;
+  border-bottom: 1px solid #1f2228;
+}
+
+.navbar h4 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: #888888;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #00ff88;
+}
+
+.nav-links a.active,
+.nav-links a:hover {
+  color: #ffffff;
+}
+
+/* Modern Farewell Banner */
+.shutdown-banner {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 32px;
+  background: #111111;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.banner-content h2 {
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.banner-content p {
+  color: #aaaaaa;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.banner-content p strong {
+  color: #ffffff;
+}
+
+.banner-content button {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.banner-content button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
 }

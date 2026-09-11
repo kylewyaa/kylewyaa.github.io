@@ -18,138 +18,30 @@
     <p class="startup-status">STATUS: TRADING <span>///</span> 007</p>
   </section>
   <script src="spinner.js"></script>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+  <h4>KYLE CAMPOS</h4>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="trading.html" class="active">Trading</a></li>
+    <li><a href="Schedule.html">Schedule</a></li>
+    <li><a href="skybound.html">Skybound</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+  </ul>
+</nav>
 
-  <div id="all-contents">
-    <nav>
-      <h1>Kyle Campos</h1>
-      <ul id="nav-ul">
-        <li class="nav-li"><a href="index.html">Home</a></li>
-        <li class="nav-li"><a href="portfolio.html">Portfolio</a></li>
-        <li class="nav-li"><a href="trading.html" aria-current="page">Trading</a></li>
-        <li class="nav-li"><a href="Schedule.html">Schedule</a></li>
-        <li class="nav-li"><a href="skybound.html">Skybound</a></li>
-        <li class="nav-li"><a href="gallery.html">Gallery</a></li>
-      </ul>
-    </nav>
-
-    <main class="trading-main">
-      <section class="trading-hero">
-        <p class="trading-kicker">Paper account / Live market reference</p>
-        <h2>Trade the<br /><span>moment.</span></h2>
-        <p class="trading-note">Start with $100,000. Every position is simulated, and every bad trade comes out of your balance.</p>
-        <div class="account-summary">
-          <div class="account-balance"><span>Available balance</span><strong id="account-balance">$100,000.00</strong></div>
-          <div class="performance-card">
-            <div class="performance-heading"><span>Performance</span><strong id="performance-change">+$0.00 / 0.00%</strong></div>
-            <svg id="performance-line" viewBox="0 0 240 64" role="img" aria-label="Account performance line chart" preserveAspectRatio="none">
-              <polyline id="performance-path" points="0,32 240,32" />
-            </svg>
-          </div>
-        </div>
-      </section>
-
-      <div class="trading-workspace">
-        <div class="terminal-tabs">
-          <button class="terminal-tab is-active" type="button" data-market="forex">Forex</button>
-          <button class="terminal-tab" type="button" data-market="crypto">Crypto</button>
-          <button class="terminal-tab" type="button" data-market="portfolio">Portfolio</button>
-          <button class="terminal-tab" type="button" data-market="leaderboard">Leaderboard</button>
-          <button class="terminal-tab" type="button" data-market="settings">Settings</button>
-        </div>
-        <section class="trading-terminal" aria-labelledby="terminal-title">
-        <div class="terminal-header">
-          <div><p class="trading-kicker">Market price</p><h1 id="terminal-title">EUR / USD</h1></div>
-          <label class="pair-picker">Pair
-            <select id="pair-selector">
-              <option value="EURUSD">EUR / USD</option>
-              <option value="GBPUSD">GBP / USD</option>
-              <option value="USDJPY">USD / JPY</option>
-              <option value="AUDUSD">AUD / USD</option>
-            </select>
-          </label>
-          <strong class="quote" id="quote">1.08420</strong>
-        </div>
-        <div class="terminal-chart">
-          <iframe id="tradingview-chart" title="TradingView EUR USD forex chart" src="https://www.tradingview.com/widgetembed/?symbol=FX%3AEURUSD&interval=15&hidesidetoolbar=1&symboledit=1&saveimage=0&toolbar_bg=%23080808&studies=%5B%5D&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&hide_top_toolbar=1&hide_legend=0&hide_volume=1&allow_symbol_change=0&calendar=0" loading="lazy" frameborder="0"></iframe>
-        </div>
-        <div class="order-bar">
-          <label>Units <input id="trade-units" type="number" value="1000" min="1" step="1" /></label>
-          <button class="order-button buy" type="button" data-side="buy">Buy</button>
-          <button class="order-button sell" type="button" data-side="sell">Sell</button>
-          <button class="order-button close" id="close-trade" type="button" disabled>Close</button>
-        </div>
-        <p class="position-line" id="position-line">No open position. Watch the quote and choose a side.</p>
-        </section>
-
-        <section class="portfolio-panel" id="portfolio-panel" aria-labelledby="portfolio-title" hidden>
-        <p class="trading-kicker">Account overview</p>
-        <h1 id="portfolio-title">My portfolio</h1>
-        <div class="portfolio-stats">
-          <div><span>Balance</span><strong id="portfolio-balance">$100,000.00</strong></div>
-          <div><span>This week</span><strong id="weekly-earnings">$0.00</strong></div>
-          <div><span>Win / loss</span><strong id="win-loss">0 / 0</strong></div>
-        </div>
-        <div class="active-trades">
-          <div class="active-trades-heading"><h2>Active trades</h2><span id="active-count">0 open</span></div>
-          <p id="active-trades-empty">No active trades. Open a position from the market tab.</p>
-          <ul id="active-trades-list"></ul>
-        </div>
-        </section>
-        <!-- Admin Control Panel (Hidden by default) -->
-        <div id="admin-panel" style="display: none; background: #1a1a1a; padding: 15px; border: 1px solid #ff4444; margin-bottom: 20px; border-radius: 8px;">
-        <h3 style="color: #ff4444; margin-top: 0;">Admin Controls</h3>
-       <p>Logged in as <strong>KD (Admin)</strong></p>
-       <button id="admin-reset-leaderboard-btn" style="background: #ff4444; color: #fff; padding: 8px 12px; border: none; cursor: pointer; border-radius: 4px;">Reset All Accounts</button>
-      </div>
-        <section class="leaderboard-panel" id="leaderboard-panel" hidden>
-          <p class="trading-kicker">Paper trading / Today</p>
-          <h1>Leaderboard</h1>
-          <div class="leaderboard-row leaderboard-heading"><span>#</span><span>Trader</span><span>Daily P/L</span><span>Balance</span></div>
-          <div id="leaderboard-list"></div>
-          <p id="leaderboard-empty">No trades closed today. Be the first on the board.</p>
-        </section>
-
-        <section class="signup-panel" id="signup-panel" hidden>
-          <p class="trading-kicker">Paper trading / New account</p>
-          <h1>Start trading</h1>
-          <form class="account-form" id="signup-form">
-            <label>Username <input id="signup-username" required minlength="3" maxlength="18" autocomplete="username" /></label>
-            <label>Password <input id="signup-password" required minlength="4" type="password" autocomplete="new-password" /></label>
-            <label class="profile-upload">Profile picture
-              <input id="profile-file" type="file" accept="image/png,image/jpeg,image/gif,image/webp" />
-            </label>
-            <button type="submit">Create paper account</button>
-            <p class="form-message" id="signup-message" aria-live="polite"></p>
-            <small>No email required. Account data stays in this browser.</small>
-          </form>
-          <button class="login-toggle" id="login-toggle" type="button">Log in to another account</button>
-          <form class="account-form login-form" id="login-form" hidden>
-            <p class="trading-kicker">Existing account</p>
-            <label>Username <input id="login-username" required autocomplete="username" /></label>
-            <label>Password <input id="login-password" required type="password" autocomplete="current-password" /></label>
-            <button type="submit">Log in</button>
-            <p class="form-message" id="login-message" aria-live="polite"></p>
-          </form>
-        </section>
-
-        <section class="settings-panel" id="settings-panel" hidden>
-          <p class="trading-kicker">Account controls</p>
-          <h1>Settings</h1>
-          <p class="signed-in-as" id="signed-in-as"></p>
-          <form class="account-form" id="settings-form">
-            <label>New username <input id="new-username" maxlength="18" minlength="3" /></label>
-            <label class="profile-upload">New profile picture
-              <input id="settings-profile-file" type="file" accept="image/png,image/jpeg,image/gif,image/webp" />
-            </label>
-            <button type="submit">Save changes</button>
-            <p class="form-message" id="settings-message" aria-live="polite"></p>
-          </form>
-          <button class="logout-button" id="logout-button" type="button">Log out</button>
-          <p class="settings-note">Username changes are available once every 15 days.</p>
-        </section>
-      </div>
-    </main>
+  <!-- Modern Retirement Notice Banner -->
+  <div id="shutdown-notice" class="shutdown-banner">
+    <div class="banner-content">
+      <h2>END OF AN ERA: THANK YOU FOR EVERYTHING! 🚀</h2>
+      <p>
+        ⚠️ <strong>Trading Mode Notice:</strong> Trading is officially retired and will be fully removed on <strong>September 20, 2026</strong>.
+      </p>
+      <button onclick="document.getElementById('shutdown-notice').style.display='none'">Dismiss</button>
+    </div>
   </div>
-  <script src="trading.js"></script>
+</div>
 </body>
 </html>
