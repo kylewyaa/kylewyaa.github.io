@@ -22,31 +22,31 @@
     <p class="startup-status">STATUS: LOADING GAME <span>///</span> 001</p>
   </section>
   
-  <!-- Navigation Bar -->
-  <nav class="navbar">
-    <h4>KYLE CAMPOS</h4>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="trading.html" class="active">Vice City</a></li>
-      <li><a href="Schedule.html">Schedule</a></li>
-      <li><a href="skybound.html">Skybound</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-    </ul>
-  </nav>
-
-  <nav class="navbar">
-  <!-- Your navbar content -->
-</nav>
-
-<main class="game-container">
-  <iframe 
-    src="https://mhm.rigaprecast.com.au/f/g/hs/truffled.lol/games/vicecity/index.html" 
-    title="GTA Vice City"
-    allowfullscreen
-    sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-forms">
-  </iframe>
-</main>
+ <!-- All content goes here -->
+  <div id="all-contents">
+    <nav>
+      <h1>KYLE'S WORLD</h1>
+      <ul id="nav-ul">
+        <li class="nav-li">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="nav-li">
+          <a href="portfolio.html" aria-current="page">Portfolio</a>
+        </li>
+        <li class="nav-li">
+          <a href="trading.html">Trading</a>
+        </li>
+        <li class="nav-li">
+          <a href="Schedule.html">Schedule</a>
+        </li>
+        <li class="nav-li">
+          <a href="skybound.html">Skybound</a>
+        </li>
+        <li class="nav-li">
+          <a href="gallery.html">Gallery</a>
+        </li>
+      </ul>
+    </nav>
   <!-- Game Container -->
   <main class="game-container">
     <iframe 
@@ -56,7 +56,34 @@
       sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-forms">
     </iframe>
   </main>
+<!-- Main Game Section -->
+<main class="game-container" id="gameContainer">
+  <div class="game-controls">
+    <button id="fullscreenBtn" class="fullscreen-btn">⛶ Fullscreen</button>
+  </div>
+  <iframe 
+    id="gameIframe"
+    src="https://mhm.rigaprecast.com.au/f/g/hs/truffled.lol/games/vicecity/index.html" 
+    title="GTA Vice City"
+    allowfullscreen
+    sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-forms">
+  </iframe>
+</main>
 
+<script>
+  const fullscreenBtn = document.getElementById("fullscreenBtn");
+  const gameIframe = document.getElementById("gameIframe");
+
+  fullscreenBtn.addEventListener("click", () => {
+    if (gameIframe.requestFullscreen) {
+      gameIframe.requestFullscreen();
+    } else if (gameIframe.webkitRequestFullscreen) { /* Safari */
+      gameIframe.webkitRequestFullscreen();
+    } else if (gameIframe.msRequestFullscreen) { /* IE11 */
+      gameIframe.msRequestFullscreen();
+    }
+  });
+</script>
   <!-- Hide Loading Screen Script -->
   <script>
     window.addEventListener("load", () => {
