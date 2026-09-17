@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vice City - Kyle Campos</title>
-  <link rel="stylesheet" href="trading.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="trading.css" />
 </head>
 <body class="trading-page">
 
+  <!-- Startup / Loading Screen -->
+  <section class="startup-screen" id="startupScreen" aria-label="Loading Kyle's World">
+    <div class="startup-mark" aria-hidden="true">K<span>.</span></div>
+    <div class="startup-meta">
+      <p>WELCOME TO</p>
+      <h2>Vice City</h2>
+    </div>
+    <div class="startup-progress" aria-hidden="true">
+      <span></span>
+    </div>
+    <p class="startup-status">STATUS: LOADING GAME <span>///</span> 001</p>
+  </section>
+  
   <!-- Navigation Bar -->
   <nav class="navbar">
     <h4>KYLE CAMPOS</h4>
@@ -21,6 +35,18 @@
     </ul>
   </nav>
 
+  <nav class="navbar">
+  <!-- Your navbar content -->
+</nav>
+
+<main class="game-container">
+  <iframe 
+    src="https://mhm.rigaprecast.com.au/f/g/hs/truffled.lol/games/vicecity/index.html" 
+    title="GTA Vice City"
+    allowfullscreen
+    sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-forms">
+  </iframe>
+</main>
   <!-- Game Container -->
   <main class="game-container">
     <iframe 
@@ -31,5 +57,18 @@
     </iframe>
   </main>
 
+  <!-- Hide Loading Screen Script -->
+  <script>
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("startupScreen");
+      if (loader) {
+        setTimeout(() => {
+          loader.style.opacity = "0";
+          loader.style.transition = "opacity 0.5s ease";
+          setTimeout(() => loader.style.display = "none", 500);
+        }, 1200); // Adjust display duration (in ms) if desired
+      }
+    });
+  </script>
 </body>
 </html>
